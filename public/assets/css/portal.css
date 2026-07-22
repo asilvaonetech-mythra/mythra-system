@@ -191,6 +191,7 @@ main,
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | REDE DE CONEXÃO
@@ -213,6 +214,7 @@ main,
     z-index:2;
 
 }
+
 
 
 
@@ -258,6 +260,7 @@ main,
 
 
 
+
 .portal-hotspot::before {
 
     content:"";
@@ -280,7 +283,9 @@ main,
 
     animation:
 
-        hotspotPulse 3s infinite;
+        hotspotPulse
+        calc(5s - (var(--module-energy,50) * .03s))
+        infinite;
 
 }
 
@@ -329,12 +334,13 @@ main,
 
     box-shadow:
 
-        0 0 15px #D4AF37,
+        0 0 calc(10px + (var(--module-energy,50) * .3px))
+        #D4AF37,
 
-        0 0 35px rgba(138,43,226,.8);
+        0 0 calc(20px + (var(--module-energy,50) * .5px))
+        rgba(138,43,226,.8);
 
 }
-
 
 
 
@@ -347,6 +353,29 @@ main,
 
 }
 
+
+
+
+.portal-hotspot.dominant {
+
+    filter:
+
+        drop-shadow(
+            0 0 35px rgba(212,175,55,.9)
+        );
+
+}
+
+
+
+
+.portal-hotspot.dominant .portal-node {
+
+    animation:
+
+        dominantNode 1.2s infinite ease-in-out;
+
+}
 
 
 
@@ -503,6 +532,7 @@ main,
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | ANIMAÇÕES
@@ -591,6 +621,34 @@ main,
     50% {
 
         transform:scale(1.35);
+
+    }
+
+
+    100% {
+
+        transform:scale(1);
+
+    }
+
+}
+
+
+
+
+@keyframes dominantNode {
+
+
+    0% {
+
+        transform:scale(1);
+
+    }
+
+
+    50% {
+
+        transform:scale(1.55);
 
     }
 
