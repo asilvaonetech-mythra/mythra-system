@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PortalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,11 +55,11 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/portal', function () {
+Route::get('/portal/state', [PortalController::class, 'state'])
+    ->name('portal.state');
 
-        return view('portal.index');
-
-    })->name('portal');
+Route::get('/portal', [PortalController::class, 'index'])
+    ->name('portal');    
 
     /*
     |--------------------------------------------------------------------------
