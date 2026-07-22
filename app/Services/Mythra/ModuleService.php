@@ -6,8 +6,10 @@ use App\Support\Mythra\Modules;
 use App\Support\Mythra\Domains;
 use App\Support\Mythra\Journeys;
 
+
 class ModuleService
 {
+
 
     /*
     |--------------------------------------------------------------------------
@@ -18,7 +20,10 @@ class ModuleService
     public function find(string $module): ?array
     {
 
+
         $data = Modules::find($module);
+
+
 
         if(!$data){
 
@@ -26,41 +31,62 @@ class ModuleService
 
         }
 
+
+
         /*
         |--------------------------------------------------------------------------
         | Complementos do Domínio
         |--------------------------------------------------------------------------
         */
 
+
         if(method_exists(Domains::class, $module)){
 
-            $data['details'] = Domains::$module();
+
+            $data['details'] =
+                Domains::$module();
+
 
         }
 
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Jornada do Atendente
+        |--------------------------------------------------------------------------
+        */
+
+
+        if(isset($data['attendant']['name'])){
+
+
+            $journey = Journeys::find(
+                $data['attendant']['name']
+            );
+
+
+            if($journey){
+
+
+                $data['journey'] =
+                    $journey;
+
+
+            }
+
+
+        }
+
+
+
         return $data;
 
-    }
-
-    /*
-|--------------------------------------------------------------------------
-| Jornada do Atendente
-|--------------------------------------------------------------------------
-*/
-
-if(isset($data['attendant']['name'])){
-
-    $journey = Journeys::find(
-        $data['attendant']['name']
-    );
-
-    if($journey){
-
-        $data['journey'] = $journey;
 
     }
 
-}
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -71,9 +97,13 @@ if(isset($data['attendant']['name'])){
     public function all(): array
     {
 
+
         return Modules::all();
 
+
     }
+
+
 
 
     /*
@@ -85,9 +115,13 @@ if(isset($data['attendant']['name'])){
     public function ordered(): array
     {
 
+
         return Modules::all();
 
+
     }
+
+
 
 
     /*
@@ -99,9 +133,14 @@ if(isset($data['attendant']['name'])){
     public function search(string $term): array
     {
 
+
         $results = [];
 
+
+
         foreach(Modules::all() as $module){
+
+
 
             if(
 
@@ -119,14 +158,22 @@ if(isset($data['attendant']['name'])){
 
             ){
 
-                $results[] = $module;
+
+                $results[] =
+                    $module;
+
 
             }
 
+
         }
+
+
 
         return $results;
 
+
     }
+
 
 }
