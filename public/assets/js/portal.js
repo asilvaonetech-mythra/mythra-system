@@ -1,7 +1,7 @@
 /*
 |--------------------------------------------------------------------------
 | MYTHRA PORTAL
-| Navegação + Estado do Ecossistema
+| Navegação + Estado Vivo do Ecossistema
 |--------------------------------------------------------------------------
 */
 
@@ -99,6 +99,8 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 
+
+
     /*
     |--------------------------------------------------------------------------
     | MYTHRA STATE ENGINE
@@ -117,6 +119,9 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Carrega estado do Ecossistema Mythra
@@ -125,7 +130,6 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 function loadMythraState(){
-
 
 
     fetch("/portal/state")
@@ -170,9 +174,12 @@ function loadMythraState(){
 
 
 
+
+
+
 /*
 |--------------------------------------------------------------------------
-| Aplica estado nos módulos
+| Aplica estado vivo nos módulos
 |--------------------------------------------------------------------------
 */
 
@@ -186,8 +193,11 @@ function applyModuleState(data){
 
 
 
+
+
     Object.keys(data.modules)
         .forEach(module=>{
+
 
 
             const element =
@@ -202,20 +212,77 @@ function applyModuleState(data){
 
 
 
+
+
+            const moduleData =
+                data.modules[module];
+
+
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Dados internos do módulo
+            |--------------------------------------------------------------------------
+            */
+
+
             element.dataset.energy =
-                data.modules[module].energy;
+                moduleData.energy;
 
 
 
             element.dataset.status =
-                data.modules[module].status;
+                moduleData.status;
 
+
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Variável de energia para o CSS
+            |--------------------------------------------------------------------------
+            */
+
+
+            element.style.setProperty(
+                "--module-energy",
+                moduleData.energy
+            );
+
+
+
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Limpa estados anteriores
+            |--------------------------------------------------------------------------
+            */
+
+
+            element.classList.remove(
+                "active",
+                "dominant"
+            );
+
+
+
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Estado ativo
+            |--------------------------------------------------------------------------
+            */
 
 
             if(
-                data.modules[module].status
-                ===
-                "active"
+                moduleData.status === "active"
             ){
 
                 element.classList.add(
@@ -226,7 +293,33 @@ function applyModuleState(data){
 
 
 
+
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Módulo dominante do ecossistema
+            |--------------------------------------------------------------------------
+            */
+
+
+            if(
+                data.dominant === module
+            ){
+
+                element.classList.add(
+                    "dominant"
+                );
+
+            }
+
+
+
         });
+
+
+
 
 
 
@@ -234,6 +327,7 @@ function applyModuleState(data){
         "Energia média Mythra:",
         data.avgEnergy
     );
+
 
 
 }
