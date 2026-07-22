@@ -144,6 +144,8 @@ main,
 
     pointer-events:none;
 
+    z-index:1;
+
 
     filter:
 
@@ -211,7 +213,7 @@ main,
 
     pointer-events:none;
 
-    z-index:2;
+    z-index:3;
 
 }
 
@@ -247,7 +249,7 @@ main,
 
     align-items:center;
 
-    z-index:5;
+    z-index:4;
 
 
     transition:
