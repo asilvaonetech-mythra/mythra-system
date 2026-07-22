@@ -1,0 +1,80 @@
+/* ==========================================================
+   MYTHRA DESIGN SYSTEM
+   VARIABLES
+========================================================== */
+
+:root{
+
+    /* Paleta Oficial */
+
+    --mythra-black:#070A10;
+
+    --mythra-violet:#8A2BE2;
+
+    --mythra-olive:#6B7A3A;
+
+    --mythra-gold:#D4AF37;
+
+    --white:#FFFFFF;
+
+    --text:#EAEAEA;
+
+    --text-soft:#B9C0CC;
+
+
+
+    /* Background */
+
+    --bg-primary:var(--mythra-black);
+
+
+
+    /* Cards */
+
+    --card-bg:rgba(10,13,22,.72);
+
+    --card-border:rgba(255,255,255,.08);
+
+
+
+    /* Botões */
+
+    --button-bg:linear-gradient(
+        135deg,
+        var(--mythra-violet),
+        #5D1BB5
+    );
+
+
+
+    --button-hover:linear-gradient(
+        135deg,
+        #9E52FF,
+        var(--mythra-violet)
+    );
+
+
+
+    /* Sombras */
+
+    --shadow-purple:
+
+        0 0 35px rgba(138,43,226,.35);
+
+    --shadow-gold:
+
+        0 0 18px rgba(212,175,55,.25);
+
+
+
+    /* Bordas */
+
+    --radius:18px;
+
+
+
+    /* Transições */
+
+    --transition:.35s ease;
+
+}

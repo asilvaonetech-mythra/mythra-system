@@ -1,0 +1,604 @@
+/*
+|--------------------------------------------------------------------------
+| MYTHRA PORTAL
+| Mapa Vivo do Ecossistema Mythra
+|--------------------------------------------------------------------------
+*/
+
+
+html,
+body {
+
+    width:100%;
+    height:100%;
+
+    margin:0;
+    padding:0;
+
+    overflow:hidden;
+
+}
+
+
+
+#mythra-universe {
+
+    position:fixed;
+
+    inset:0;
+
+    width:100vw;
+    height:100vh;
+
+}
+
+
+
+main,
+#mythra-main {
+
+    width:100%;
+    height:100%;
+
+    margin:0;
+    padding:0;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| PORTAL BASE
+|--------------------------------------------------------------------------
+*/
+
+
+#portal {
+
+    position:fixed;
+
+    inset:0;
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
+    background:#070A10;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:10;
+
+}
+
+
+
+
+.portal-container {
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+}
+
+
+
+
+.portal-map {
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:transform .3s ease-out;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| IMAGEM OFICIAL MYTHRA
+|--------------------------------------------------------------------------
+*/
+
+
+#portal-image {
+
+    position:absolute;
+
+    inset:0;
+
+    width:100vw;
+
+    height:100vh;
+
+    object-fit:cover;
+
+    opacity:.5;
+
+    user-select:none;
+
+    pointer-events:none;
+
+
+    filter:
+
+        drop-shadow(0 0 40px rgba(138,43,226,.35))
+
+        drop-shadow(0 0 80px rgba(107,122,58,.25));
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| ENERGIA DO PORTAL
+|--------------------------------------------------------------------------
+*/
+
+
+.portal-energy {
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(212,175,55,.15),
+            transparent 45%
+        );
+
+
+    animation:
+
+        mythraPulse 8s infinite ease-in-out;
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| REDE DE CONEXÃO
+|--------------------------------------------------------------------------
+*/
+
+
+.portal-connections {
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    pointer-events:none;
+
+    z-index:2;
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| HOTSPOTS DOS MÓDULOS
+|--------------------------------------------------------------------------
+*/
+
+
+.portal-hotspot {
+
+    position:absolute;
+
+    width:70px;
+
+    height:70px;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:5;
+
+
+    transition:
+
+        transform .4s ease,
+
+        filter .4s ease;
+
+}
+
+
+
+.portal-hotspot::before {
+
+    content:"";
+
+    position:absolute;
+
+    inset:-20px;
+
+    border-radius:50%;
+
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(138,43,226,.45),
+            transparent 70%
+        );
+
+
+    animation:
+
+        hotspotPulse 3s infinite;
+
+}
+
+
+
+
+.portal-hotspot:hover {
+
+    transform:
+
+        translate(-50%,-50%)
+
+        scale(1.25);
+
+
+    filter:
+
+        drop-shadow(
+            0 0 25px rgba(212,175,55,.8)
+        );
+
+}
+
+
+
+
+
+.portal-node {
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:50%;
+
+
+    background:
+
+        radial-gradient(
+            circle,
+            #D4AF37 0%,
+            #8A2BE2 45%,
+            #070A10 100%
+        );
+
+
+    box-shadow:
+
+        0 0 15px #D4AF37,
+
+        0 0 35px rgba(138,43,226,.8);
+
+}
+
+
+
+
+
+.portal-hotspot.active .portal-node {
+
+    animation:
+
+        activeNode 1.5s infinite ease-in-out;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| LABELS
+|--------------------------------------------------------------------------
+*/
+
+
+.portal-label {
+
+    position:absolute;
+
+    top:85px;
+
+
+    color:#D4AF37;
+
+
+    font-family:
+
+        "Cinzel",
+        serif;
+
+
+    font-size:14px;
+
+
+    letter-spacing:2px;
+
+
+    text-transform:uppercase;
+
+
+    white-space:nowrap;
+
+
+    text-shadow:
+
+        0 0 10px rgba(212,175,55,.7);
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| POSIÇÃO DOS 10 MÓDULOS
+|--------------------------------------------------------------------------
+*/
+
+
+.module-core {
+
+    left:50%;
+
+    top:50%;
+
+}
+
+
+
+.module-talent {
+
+    left:50.5%;
+
+    top:17.5%;
+
+}
+
+
+
+.module-marketing {
+
+    left:25.2%;
+
+    top:31.2%;
+
+}
+
+
+
+.module-vision {
+
+    left:76%;
+
+    top:31.2%;
+
+}
+
+
+
+.module-academy {
+
+    left:20.5%;
+
+    top:54.5%;
+
+}
+
+
+
+.module-insight {
+
+    left:79.5%;
+
+    top:54.5%;
+
+}
+
+
+
+.module-essence {
+
+    left:39.5%;
+
+    top:61%;
+
+}
+
+
+
+.module-business {
+
+    left:50%;
+
+    top:81%;
+
+}
+
+
+
+.module-nexus {
+
+    left:69%;
+
+    top:70.5%;
+
+}
+
+
+
+.module-enterprise {
+
+    left:50%;
+
+    top:35%;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| ANIMAÇÕES
+|--------------------------------------------------------------------------
+*/
+
+
+@keyframes mythraPulse {
+
+
+    0% {
+
+        opacity:.4;
+
+        transform:scale(1);
+
+    }
+
+
+    50% {
+
+        opacity:.9;
+
+        transform:scale(1.04);
+
+    }
+
+
+    100% {
+
+        opacity:.4;
+
+        transform:scale(1);
+
+    }
+
+}
+
+
+
+
+@keyframes hotspotPulse {
+
+
+    0% {
+
+        transform:scale(.8);
+
+        opacity:.2;
+
+    }
+
+
+    50% {
+
+        transform:scale(1.2);
+
+        opacity:.6;
+
+    }
+
+
+    100% {
+
+        transform:scale(.8);
+
+        opacity:.2;
+
+    }
+
+}
+
+
+
+
+@keyframes activeNode {
+
+
+    0% {
+
+        transform:scale(1);
+
+    }
+
+
+    50% {
+
+        transform:scale(1.35);
+
+    }
+
+
+    100% {
+
+        transform:scale(1);
+
+    }
+
+}

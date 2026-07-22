@@ -1,0 +1,690 @@
+/*
+|--------------------------------------------------------------------------
+| MYTHRA PORTAL
+| Atendentes Mythra
+|--------------------------------------------------------------------------
+*/
+
+
+#portal-agents {
+
+    position:absolute;
+
+    right:40px;
+
+    bottom:40px;
+
+    z-index:20;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| BOTÃO PRINCIPAL
+|--------------------------------------------------------------------------
+*/
+
+
+.agent-toggle {
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+
+    border:
+
+        1px solid rgba(212,175,55,.5);
+
+
+
+    background:
+
+        radial-gradient(
+            circle,
+            #D4AF37 0%,
+            #8A2BE2 45%,
+            #070A10 100%
+        );
+
+
+    color:#fff;
+
+
+    font-size:30px;
+
+
+    cursor:pointer;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+
+    box-shadow:
+
+        0 0 20px rgba(212,175,55,.8),
+
+        0 0 50px rgba(138,43,226,.6);
+
+
+
+    transition:.4s;
+
+}
+
+
+
+
+.agent-toggle:hover {
+
+
+    transform:scale(1.15);
+
+
+    box-shadow:
+
+        0 0 35px rgba(212,175,55,1),
+
+        0 0 80px rgba(138,43,226,.8);
+
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| MENU DOS AGENTES
+|--------------------------------------------------------------------------
+*/
+
+
+.agent-menu {
+
+
+    position:absolute;
+
+
+    right:0;
+
+
+    bottom:85px;
+
+
+    width:220px;
+
+
+    padding:20px;
+
+
+
+    background:
+
+        rgba(7,10,16,.85);
+
+
+
+    border:
+
+        1px solid rgba(212,175,55,.35);
+
+
+
+    border-radius:20px;
+
+
+
+    backdrop-filter:blur(15px);
+
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:12px;
+
+
+
+    opacity:0;
+
+
+    transform:
+
+        translateY(20px);
+
+
+
+    pointer-events:none;
+
+
+
+    transition:.4s;
+
+
+
+}
+
+
+
+
+
+#portal-agents.active .agent-menu {
+
+
+    opacity:1;
+
+
+    transform:
+
+        translateY(0);
+
+
+    pointer-events:auto;
+
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| BOTÕES DOS AGENTES
+|--------------------------------------------------------------------------
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| BOTÕES DOS ATENDENTES MYTHRA
+|--------------------------------------------------------------------------
+*/
+
+
+.agent-button {
+
+    min-height:60px;
+
+    padding:12px 18px;
+
+
+    border-radius:14px;
+
+
+    border:
+
+        1px solid rgba(212,175,55,.25);
+
+
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(138,43,226,.18),
+            rgba(107,122,58,.18)
+        );
+
+
+
+    color:#D4AF37;
+
+
+
+    cursor:pointer;
+
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    justify-content:center;
+
+
+
+    transition:.35s;
+
+
+
+}
+
+
+
+.agent-button strong {
+
+
+    font-family:
+
+        "Cinzel",
+        serif;
+
+
+    font-size:15px;
+
+
+    letter-spacing:2px;
+
+
+    color:#D4AF37;
+
+
+}
+
+
+
+
+.agent-button span {
+
+
+    margin-top:5px;
+
+
+    font-size:11px;
+
+
+    letter-spacing:1px;
+
+
+    color:
+
+        rgba(255,255,255,.65);
+
+
+}
+
+
+
+
+.agent-button:hover {
+
+
+    transform:
+
+        translateX(-8px);
+
+
+
+    border-color:#D4AF37;
+
+
+
+    box-shadow:
+
+
+        0 0 20px rgba(212,175,55,.45);
+
+
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(138,43,226,.35),
+            rgba(107,122,58,.30)
+        );
+
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVO
+|--------------------------------------------------------------------------
+*/
+
+
+@media(max-width:768px){
+
+
+    #portal-agents {
+
+        right:20px;
+
+        bottom:20px;
+
+    }
+
+
+
+    .agent-toggle {
+
+        width:55px;
+
+        height:55px;
+
+    }
+
+
+
+    .agent-menu {
+
+        width:190px;
+
+    }
+
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| INFORMAÇÕES DO ATENDENTE
+|--------------------------------------------------------------------------
+*/
+
+
+.agent-info {
+
+    position:absolute;
+
+
+    right:250px;
+
+    bottom:0;
+
+
+
+    width:280px;
+
+
+
+    padding:22px;
+
+
+
+    background:
+
+        rgba(7,10,16,.88);
+
+
+
+    border:
+
+        1px solid rgba(212,175,55,.35);
+
+
+
+    border-radius:20px;
+
+
+
+    backdrop-filter:
+
+        blur(15px);
+
+
+
+    opacity:0;
+
+
+
+    transform:
+
+        translateX(30px);
+
+
+
+    pointer-events:none;
+
+
+
+    transition:.4s;
+
+
+
+}
+
+
+
+
+
+.agent-info.visible {
+
+
+    opacity:1;
+
+
+
+    transform:
+
+        translateX(0);
+
+
+
+}
+
+
+
+
+
+.agent-info h3 {
+
+
+    margin:0 0 10px;
+
+
+
+    color:#D4AF37;
+
+
+
+    font-family:
+
+        "Cinzel",
+        serif;
+
+
+
+    font-size:20px;
+
+
+
+    letter-spacing:2px;
+
+
+
+}
+
+
+
+
+
+.agent-info p {
+
+
+    margin:0;
+
+
+
+    color:
+
+        rgba(255,255,255,.75);
+
+
+
+    font-size:13px;
+
+
+
+    line-height:1.6;
+
+
+
+}
+
+
+
+
+@media(max-width:768px){
+
+
+    .agent-info {
+
+
+        right:0;
+
+        bottom:80px;
+
+
+        width:220px;
+
+
+    }
+
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| SÍMBOLOS DOS ATENDENTES
+|--------------------------------------------------------------------------
+*/
+
+
+.agent-symbol {
+
+    width:32px;
+
+    height:32px;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+
+    margin-right:12px;
+
+
+
+    border-radius:50%;
+
+
+
+    color:#D4AF37;
+
+
+
+    font-size:18px;
+
+
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(138,43,226,.35),
+            rgba(7,10,16,.8)
+        );
+
+
+
+    box-shadow:
+
+        0 0 15px rgba(212,175,55,.4);
+
+}
+
+
+
+.agent-button {
+
+
+    flex-direction:row;
+
+    align-items:center;
+
+
+}
+
+
+
+.agent-button div {
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+.agent-button small {
+
+
+    margin-top:4px;
+
+
+    color:
+
+        rgba(255,255,255,.65);
+
+
+
+    font-size:11px;
+
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| FUNÇÃO DO ATENDENTE
+|--------------------------------------------------------------------------
+*/
+
+.agent-role{
+
+    margin-bottom:14px;
+
+    color:#8A2BE2;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+
+
+.agent-button.selected{
+
+    border-color:#D4AF37;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(138,43,226,.40),
+            rgba(107,122,58,.30)
+        );
+
+    box-shadow:
+
+        0 0 25px rgba(212,175,55,.45);
+
+}

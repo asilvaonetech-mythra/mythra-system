@@ -1,0 +1,880 @@
+/* ==========================================================
+   MYTHRA LOGIN
+========================================================== */
+
+#mythra-engine{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    z-index:1;
+
+    pointer-events:none;
+
+}
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+
+    margin:0;
+    padding:0;
+
+    overflow:hidden;
+
+}
+
+
+
+/* ==========================================================
+   CONTAINER
+========================================================== */
+
+.login-page{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
+}
+
+
+
+/* ==========================================================
+   FUNDO
+========================================================== */
+
+.login-background{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center;
+
+    z-index:0;
+
+}
+
+
+
+/* ==========================================================
+   CAMADA DE PROFUNDIDADE
+========================================================== */
+
+.login-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        rgba(7,10,16,.15),
+        rgba(7,10,16,.55)
+    );
+
+    z-index:2;
+
+}
+
+
+
+/* ==========================================================
+   CARD LOGIN
+========================================================== */
+
+.login-box{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+
+    width:420px;
+
+    padding:45px;
+
+
+    background:
+
+    rgba(10,12,22,.45);
+
+
+    backdrop-filter:
+
+    blur(18px);
+
+
+    border:
+
+    1px solid rgba(255,255,255,.15);
+
+
+    border-radius:24px;
+
+
+    z-index:5;
+
+
+}
+
+
+
+/* ==========================================================
+   TEXTOS
+========================================================== */
+
+
+.login-box h1{
+
+    color:white;
+
+    font-size:36px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.login-box p{
+
+    color:#d0d0d0;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* ==========================================================
+   CAMPOS
+========================================================== */
+
+
+.field{
+
+    margin-bottom:18px;
+
+}
+
+
+
+.field input{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    outline:none;
+
+
+    border-radius:14px;
+
+
+    background:
+
+    rgba(255,255,255,.10);
+
+
+    color:white;
+
+    font-size:15px;
+
+    box-sizing:border-box;
+
+}
+
+
+
+.field input::placeholder{
+
+    color:#cccccc;
+
+}
+
+
+
+/* ==========================================================
+   BOTÃO
+========================================================== */
+
+
+.login-box button{
+
+
+    width:100%;
+
+
+    padding:16px;
+
+
+    border:none;
+
+
+    border-radius:14px;
+
+
+    cursor:pointer;
+
+
+    color:white;
+
+
+    font-size:16px;
+
+
+    font-weight:600;
+
+
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #8A2BE2,
+        #6B7A3A
+    );
+
+
+    transition:.3s;
+
+
+}
+
+
+
+.login-box button:hover{
+
+
+    transform:
+
+    translateY(-3px);
+
+
+}
+
+
+
+/* ==========================================================
+   LINK CADASTRO
+========================================================== */
+
+
+.login-box a{
+
+
+    display:block;
+
+
+    margin-top:25px;
+
+
+    text-align:center;
+
+
+    color:white;
+
+
+    opacity:.85;
+
+
+}
+
+
+
+.login-box a:hover{
+
+
+    opacity:1;
+
+
+}
+
+
+
+/* ==========================================================
+   RESPONSIVO
+========================================================== */
+
+
+@media(max-width:700px){
+
+
+    .login-box{
+
+
+        width:90%;
+
+        padding:30px;
+
+
+    }
+
+
+}
+
+/* ==========================================================
+   ANIMAÇÃO FEIXE DE LUZ MYTHRA
+========================================================== */
+
+
+.login-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-50%;
+
+    left:-40%;
+
+    width:35%;
+
+    height:200%;
+
+
+    background:
+
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.65),
+        rgba(138,43,226,.55),
+        transparent
+    );
+
+
+    transform:
+
+    rotate(25deg);
+
+
+    filter:
+
+    blur(12px);
+
+
+    animation:
+
+    mythraLight 3s ease forwards;
+
+
+    z-index:3;
+
+    pointer-events:none;
+
+}
+
+
+
+/* ==========================================================
+   ENTRADA DO CARD LOGIN
+========================================================== */
+
+.login-box{
+
+    animation:
+
+    mythraReveal 1.5s ease forwards;
+
+    animation-delay:1.8s;
+
+}
+
+
+
+@keyframes mythraReveal{
+
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translate(-50%,-40%);
+
+        filter:blur(12px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translate(-50%,-50%);
+
+        filter:blur(0);
+
+    }
+
+}
+
+
+
+/* ==========================================================
+   FEIXE DE LUZ MYTHRA
+========================================================== */
+
+.login-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-60%;
+
+    left:-30%;
+
+    width:55%;
+
+    height:220%;
+
+
+    background:
+
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.85),
+        rgba(138,43,226,.65),
+        rgba(212,175,55,.35),
+        transparent
+    );
+
+
+    transform:rotate(35deg);
+
+
+    filter:blur(18px);
+
+
+    animation:
+
+    mythraLight 3s ease forwards;
+
+
+    z-index:3;
+
+    pointer-events:none;
+
+}
+
+
+
+/* Movimento atravessando a tela */
+
+@keyframes mythraLight{
+
+
+    0%{
+
+        left:-60%;
+
+        opacity:0;
+
+    }
+
+
+    15%{
+
+        opacity:1;
+
+    }
+
+
+    70%{
+
+        opacity:.8;
+
+    }
+
+
+    100%{
+
+        left:130%;
+
+        opacity:0;
+
+    }
+
+}
+/* ==========================================================
+   ORBE MYTHRA
+========================================================== */
+
+.login-orb{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    width:30px;
+    height:30px;
+
+    transform:translate(-50%,-50%) scale(.1);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(circle,
+        rgba(255,255,255,.95) 0%,
+        rgba(138,43,226,.95) 45%,
+        rgba(138,43,226,0) 100%);
+
+    box-shadow:
+        0 0 40px rgba(138,43,226,.9),
+        0 0 120px rgba(138,43,226,.6),
+        0 0 220px rgba(138,43,226,.35);
+
+    opacity:0;
+
+    z-index:2;
+
+    animation:
+        mythraOrb 2.2s ease forwards;
+
+}
+
+
+@keyframes mythraOrb{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+        translate(-50%,-50%)
+        scale(.05);
+
+    }
+
+    20%{
+
+        opacity:1;
+
+    }
+
+    60%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(2);
+
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:
+        translate(-50%,-50%)
+        scale(12);
+
+    }
+
+}
+
+/* ==========================================
+   BRILHO DO CARD
+========================================== */
+
+.login-box{
+
+    box-shadow:
+        0 0 0 rgba(138,43,226,0);
+
+}
+
+
+.login-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-2px;
+
+    border-radius:24px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(138,43,226,.45),
+        transparent,
+        rgba(193,177,106,.35)
+    );
+
+    opacity:0;
+
+    z-index:-1;
+
+    filter:blur(12px);
+
+    transition:opacity .8s ease;
+
+}
+
+
+.login-box.show::before{
+
+    opacity:1;
+
+}
+
+/* ==========================================
+   CONTEÚDO DO CARD
+========================================== */
+
+.login-content{
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s ease;
+
+}
+
+.login-content.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+/* ==========================================================
+   PORTAL DE ENERGIA
+========================================================== */
+
+.login-beam{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    width:12px;
+    height:0;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0),
+            rgba(255,255,255,.95),
+            rgba(138,43,226,.95),
+            rgba(255,255,255,.95),
+            rgba(255,255,255,0)
+        );
+
+    box-shadow:
+
+        0 0 30px rgba(138,43,226,.9),
+
+        0 0 80px rgba(138,43,226,.7),
+
+        0 0 180px rgba(138,43,226,.5);
+
+    opacity:0;
+
+    z-index:2;
+
+    animation:
+
+        mythraBeam 2.8s ease forwards;
+
+}
+
+
+
+@keyframes mythraBeam{
+
+    0%{
+
+        opacity:0;
+
+        height:0;
+
+        width:12px;
+
+    }
+
+    25%{
+
+        opacity:1;
+
+    }
+
+    60%{
+
+        height:100vh;
+
+        width:18px;
+
+    }
+
+    85%{
+
+        height:100vh;
+
+        width:30px;
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        opacity:0;
+
+        height:100vh;
+
+        width:60px;
+
+    }
+
+}
+
+/* ==========================================================
+   PARTÍCULAS DA MYTHRA
+========================================================== */
+
+.space-particles{
+
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+
+}
+
+.space-particles span{
+
+    position:absolute;
+
+    width:4px;
+    height:4px;
+
+    border-radius:50%;
+
+    background:white;
+
+    box-shadow:
+        0 0 10px white,
+        0 0 25px #8A2BE2;
+
+    animation:
+        particleMove 2s ease forwards;
+
+}
+
+/* posições */
+
+.space-particles span:nth-child(1){top:8%;left:15%;}
+.space-particles span:nth-child(2){top:18%;right:12%;}
+.space-particles span:nth-child(3){top:35%;left:6%;}
+.space-particles span:nth-child(4){bottom:15%;left:18%;}
+.space-particles span:nth-child(5){bottom:10%;right:15%;}
+.space-particles span:nth-child(6){top:55%;right:4%;}
+.space-particles span:nth-child(7){top:70%;left:40%;}
+.space-particles span:nth-child(8){top:25%;left:65%;}
+
+@keyframes particleMove{
+
+    0%{
+
+        opacity:0;
+        transform:scale(.2);
+
+    }
+
+    20%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        top:50%;
+        left:50%;
+
+        transform:
+            translate(-50%,-50%)
+            scale(.1);
+
+        opacity:0;
+
+    }
+
+}
+
+/* ==========================================
+   VIDA NO UNIVERSO
+========================================== */
+
+.login-background{
+
+    animation:
+        mythraUniverse 18s ease-in-out infinite alternate;
+
+}
+
+@keyframes mythraUniverse{
+
+    from{
+
+        transform:scale(1);
+
+    }
+
+    to{
+
+        transform:scale(1.035);
+
+    }
+
+}

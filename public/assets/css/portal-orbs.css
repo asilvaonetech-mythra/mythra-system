@@ -1,0 +1,42 @@
+.orb{
+
+    position:absolute;
+
+    width:26px;
+
+    height:26px;
+
+    border-radius:50%;
+
+    transform:translate(-50%,-50%);
+
+    cursor:pointer;
+
+    background:
+    radial-gradient(circle,#D4AF37 0%,#A78B2E 25%,#8A2BE2 100%);
+
+    border:2px solid rgba(255,255,255,.15);
+
+    box-shadow:
+
+        0 0 10px #D4AF37,
+
+        0 0 18px #8A2BE2,
+
+        0 0 40px rgba(138,43,226,.55),
+
+        0 0 60px rgba(107,122,58,.45);
+
+    transition:.35s;
+
+}
+
+.orb:hover{
+
+    transform:
+
+        translate(-50%,-50%)
+
+        scale(1.45);
+
+}

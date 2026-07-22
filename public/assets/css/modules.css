@@ -1,0 +1,285 @@
+/*
+|--------------------------------------------------------------------------
+| MYTHRA DOMAINS
+| Interface Oficial dos Domínios
+|--------------------------------------------------------------------------
+*/
+
+
+.mythra-domain {
+
+    min-height:100vh;
+
+    padding:60px;
+
+    color:#ffffff;
+
+    background:
+    radial-gradient(
+        circle at top,
+        rgba(138,43,226,.20),
+        transparent 45%
+    );
+
+}
+
+
+
+.domain-header {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:30px;
+
+    margin-bottom:50px;
+
+}
+
+
+
+.domain-symbol {
+
+    width:90px;
+
+    height:90px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+
+    font-size:45px;
+
+
+    color:#D4AF37;
+
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(212,175,55,.25),
+        rgba(138,43,226,.15)
+    );
+
+
+    border:
+
+    1px solid rgba(212,175,55,.5);
+
+
+    box-shadow:
+
+    0 0 35px rgba(212,175,55,.35);
+
+}
+
+
+
+
+.domain-title h1 {
+
+
+    margin:0;
+
+
+    font-size:42px;
+
+
+    color:#D4AF37;
+
+
+}
+
+
+
+.domain-title p {
+
+
+    margin-top:8px;
+
+
+    color:#b8b8b8;
+
+
+    font-size:18px;
+
+
+}
+
+
+
+
+
+.domain-grid {
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+    repeat(
+        auto-fit,
+        minmax(300px,1fr)
+    );
+
+
+    gap:25px;
+
+
+}
+
+
+
+
+
+.domain-card {
+
+
+    padding:28px;
+
+
+    border-radius:20px;
+
+
+    background:
+
+    rgba(13,13,13,.65);
+
+
+    border:
+
+    1px solid rgba(138,43,226,.35);
+
+
+
+    backdrop-filter:blur(10px);
+
+
+
+    transition:.3s;
+
+
+
+}
+
+
+
+.domain-card:hover {
+
+
+    transform:translateY(-5px);
+
+
+
+    border-color:#D4AF37;
+
+
+
+    box-shadow:
+
+    0 0 30px rgba(212,175,55,.15);
+
+
+
+}
+
+
+
+
+.domain-card h2 {
+
+
+    color:#D4AF37;
+
+
+    margin-bottom:15px;
+
+
+    font-size:22px;
+
+
+}
+
+
+
+
+.domain-card h3 {
+
+
+    color:#8A2BE2;
+
+
+    font-size:28px;
+
+
+    margin-bottom:8px;
+
+
+}
+
+
+
+
+.domain-card p {
+
+
+    color:#dddddd;
+
+
+    line-height:1.6;
+
+
+}
+
+
+
+
+
+.domain-card ul {
+
+
+    padding-left:20px;
+
+
+}
+
+
+
+.domain-card li {
+
+
+    margin-bottom:10px;
+
+
+    color:#cccccc;
+
+
+}
+
+
+
+.attendant-card {
+
+
+    background:
+
+
+    linear-gradient(
+
+    145deg,
+
+    rgba(138,43,226,.20),
+
+    rgba(13,13,13,.8)
+
+    );
+
+
+}
