@@ -1,309 +1,7 @@
 /*
 |--------------------------------------------------------------------------
-| MYTHRA PORTAL
-| Navegação + Estado Vivo + Rede do Ecossistema
-|--------------------------------------------------------------------------
-*/
-
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | NAVEGAÇÃO DOS MÓDULOS
-    |--------------------------------------------------------------------------
-    */
-
-
-    const modules = {
-
-
-        "module-core":
-        "/portal/core",
-
-
-        "module-talent":
-        "/portal/talent",
-
-
-        "module-business":
-        "/portal/business",
-
-
-        "module-vision":
-        "/portal/vision",
-
-
-        "module-insight":
-        "/portal/insight",
-
-
-        "module-academy":
-        "/portal/academy",
-
-
-        "module-essence":
-        "/portal/essence",
-
-
-        "module-marketing":
-        "/portal/marketing",
-
-
-        "module-nexus":
-        "/portal/nexus",
-
-
-        "module-enterprise":
-        "/portal/enterprise"
-
-
-    };
-
-
-
-
-
-
-    Object.keys(modules).forEach(module=>{
-
-
-        const element =
-            document.querySelector(
-                "." + module
-            );
-
-
-
-        if(!element)
-            return;
-
-
-
-        element.addEventListener(
-            "click",
-            ()=>{
-
-
-                window.location.href =
-                    modules[module];
-
-
-            }
-        );
-
-
-    });
-
-
-
-
-
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | MYTHRA STATE ENGINE
-    |--------------------------------------------------------------------------
-    */
-
-
-    loadMythraState();
-
-
-
-});
-
-
-
-
-
-
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Carrega estado do Ecossistema Mythra
-|--------------------------------------------------------------------------
-*/
-
-
-function loadMythraState(){
-
-
-
-    fetch("/portal/state")
-
-
-        .then(response=>response.json())
-
-
-        .then(data=>{
-
-
-            console.log(
-                "Mythra State:",
-                data
-            );
-
-
-
-            applyModuleState(data);
-
-
-
-            generatePortalNetwork(data);
-
-
-
-        })
-
-
-        .catch(error=>{
-
-
-            console.error(
-                "Erro ao carregar estado Mythra:",
-                error
-            );
-
-
-        });
-
-
-}
-
-
-
-
-
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Aplica estado nos módulos
-|--------------------------------------------------------------------------
-*/
-
-
-function applyModuleState(data){
-
-
-
-    if(!data.modules)
-        return;
-
-
-
-
-    Object.keys(data.modules)
-        .forEach(module=>{
-
-
-
-            const element =
-                document.querySelector(
-                    ".module-" + module
-                );
-
-
-
-            if(!element)
-                return;
-
-
-
-
-
-            const moduleData =
-                data.modules[module];
-
-
-
-
-
-            element.dataset.energy =
-                moduleData.energy;
-
-
-
-
-            element.dataset.status =
-                moduleData.status;
-
-
-
-
-
-            element.style.setProperty(
-                "--module-energy",
-                moduleData.energy
-            );
-
-
-
-
-
-            element.classList.remove(
-                "active",
-                "dominant"
-            );
-
-
-
-
-
-            if(
-                moduleData.status === "active"
-            ){
-
-                element.classList.add(
-                    "active"
-                );
-
-            }
-
-
-
-
-
-            if(
-                data.dominant === module
-            ){
-
-                element.classList.add(
-                    "dominant"
-                );
-
-            }
-
-
-
-        });
-
-
-
-
-
-
-    console.log(
-        "Energia média Mythra:",
-        data.avgEnergy
-    );
-
-
-}
-
-
-/*
-|--------------------------------------------------------------------------
 | REDE VIVA DO PORTAL MYTHRA
+| Inteligência das Conexões
 |--------------------------------------------------------------------------
 */
 
@@ -326,6 +24,7 @@ function generatePortalNetwork(data){
 
 
     svg.innerHTML = "";
+
 
 
 
@@ -437,6 +136,8 @@ function generatePortalNetwork(data){
 
 
 
+
+
         const startRect =
             start.getBoundingClientRect();
 
@@ -444,6 +145,7 @@ function generatePortalNetwork(data){
 
         const endRect =
             end.getBoundingClientRect();
+
 
 
 
@@ -483,6 +185,8 @@ function generatePortalNetwork(data){
             )
             *
             100;
+
+
 
 
 
@@ -539,6 +243,7 @@ function generatePortalNetwork(data){
 
 
 
+
         line.setAttribute(
             "x1",
             x1
@@ -589,6 +294,135 @@ function generatePortalNetwork(data){
         );
 
 
+/*
+|--------------------------------------------------------------------------
+| INTELIGÊNCIA DAS CONEXÕES MYTHRA
+|--------------------------------------------------------------------------
+*/
+
+
+
+
+
+        const moduleName =
+            connection[1]
+            .replace(
+                "module-",
+                ""
+            );
+
+
+
+
+
+
+        const moduleState =
+            data.modules &&
+            data.modules[moduleName]
+            ?
+            data.modules[moduleName]
+            :
+            null;
+
+
+
+
+
+
+        if(moduleState){
+
+
+
+            const energy =
+                moduleState.energy
+                ||
+                50;
+
+
+
+
+
+            line.dataset.energy =
+                energy;
+
+
+
+
+
+
+            line.style.opacity =
+                0.35
+                +
+                (
+                    energy / 250
+                );
+
+
+
+
+
+
+            line.setAttribute(
+                "stroke-width",
+                (
+                    1
+                    +
+                    energy / 100
+                )
+            );
+
+
+
+
+
+        }
+
+
+
+
+
+
+        if(
+            data.dominant
+            &&
+            data.dominant
+            ===
+            moduleName
+        ){
+
+
+
+            line.classList.add(
+                "dominant-link"
+            );
+
+
+        }
+
+
+
+
+
+
+
+        if(
+            data.risk
+            ===
+            true
+        ){
+
+
+
+            line.classList.add(
+                "risk-link"
+            );
+
+
+        }
+
+
+
+
 
 
 
@@ -606,11 +440,11 @@ function generatePortalNetwork(data){
 
 
     console.log(
-        "Rede Mythra gerada:",
+        "Rede Mythra Inteligente:",
         connections.length,
         "conexões"
     );
 
 
 
-}
+}        

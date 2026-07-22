@@ -7,58 +7,98 @@ use Illuminate\Http\Request;
 
 class ModuleController extends Controller
 {
+
     protected ModuleService $modules;
+
 
     public function __construct(ModuleService $modules)
     {
+
         $this->modules = $modules;
+
     }
 
-    /**
-     * Lista todos os módulos.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lista todos os módulos
+    |--------------------------------------------------------------------------
+    */
+
     public function index()
     {
-        return view('modules.index', [
-            'modules' => $this->modules->ordered()
-        ]);
+
+        return view(
+            'modules.index',
+            [
+                'modules' => $this->modules->ordered()
+            ]
+        );
+
     }
 
-    /**
-     * Exibe um módulo.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exibe um domínio
+    |--------------------------------------------------------------------------
+    */
+
     public function show(string $module)
     {
-        $data = $this->modules->find($module);
 
-        if (!$data) {
+        $domain = $this->modules->find($module);
+
+        if(!$domain){
+
             abort(404);
+
         }
 
-        return view('modules.show', [
-            'module' => $data
-        ]);
+        return view(
+            'modules.show',
+            [
+                'module' => $domain
+            ]
+        );
+
     }
 
-    /**
-     * Pesquisa módulos.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Pesquisa módulos
+    |--------------------------------------------------------------------------
+    */
+
     public function search(Request $request)
     {
+
         $term = $request->input('q', '');
 
         return response()->json(
+
             $this->modules->search($term)
+
         );
+
     }
 
-    /**
-     * Retorna todos os módulos em JSON.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | API dos módulos
+    |--------------------------------------------------------------------------
+    */
+
     public function api()
     {
+
         return response()->json(
+
             $this->modules->all()
+
         );
+
     }
-}
+
+}    

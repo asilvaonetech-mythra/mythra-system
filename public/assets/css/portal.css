@@ -221,6 +221,35 @@ main,
 
 
 
+.mythra-link {
+
+    stroke-linecap:round;
+
+    animation:
+
+        mythraFlow 4s infinite linear;
+
+}
+
+
+
+
+
+.mythra-link.dominant-link {
+
+    stroke-width:3;
+
+    filter:
+
+        drop-shadow(
+            0 0 8px rgba(212,175,55,.9)
+        );
+
+}
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -314,7 +343,6 @@ main,
 
 
 
-
 .portal-node {
 
     width:28px;
@@ -378,7 +406,6 @@ main,
         dominantNode 1.2s infinite ease-in-out;
 
 }
-
 
 
 /*
@@ -535,6 +562,7 @@ main,
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | ANIMAÇÕES
@@ -660,5 +688,66 @@ main,
         transform:scale(1);
 
     }
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| FLUXO DE ENERGIA NAS CONEXÕES
+|--------------------------------------------------------------------------
+*/
+
+
+@keyframes mythraFlow {
+
+
+    0% {
+
+        stroke-dasharray:
+
+            5 15;
+
+
+        stroke-dashoffset:
+
+            0;
+
+
+        opacity:.35;
+
+    }
+
+
+
+
+    50% {
+
+        opacity:1;
+
+    }
+
+
+
+
+    100% {
+
+        stroke-dasharray:
+
+            5 15;
+
+
+        stroke-dashoffset:
+
+            -40;
+
+
+        opacity:.35;
+
+    }
+
 
 }
