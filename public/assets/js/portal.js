@@ -9,12 +9,10 @@
 function generatePortalNetwork(data){
 
 
-
     const svg =
         document.getElementById(
             "portal-network"
         );
-
 
 
     if(!svg)
@@ -22,11 +20,7 @@ function generatePortalNetwork(data){
 
 
 
-
     svg.innerHTML = "";
-
-
-
 
 
 
@@ -91,10 +85,6 @@ function generatePortalNetwork(data){
 
 
 
-
-
-
-
     const portal =
         document
         .getElementById(
@@ -106,17 +96,13 @@ function generatePortalNetwork(data){
 
 
 
-
-
     connections.forEach(connection=>{
-
 
 
         const start =
             document.querySelector(
                 "." + connection[0]
             );
-
 
 
         const end =
@@ -134,10 +120,6 @@ function generatePortalNetwork(data){
 
 
 
-
-
-
-
         const startRect =
             start.getBoundingClientRect();
 
@@ -150,15 +132,11 @@ function generatePortalNetwork(data){
 
 
 
-
-
         const x1 =
             (
                 (
-                    startRect.left
-                    +
-                    startRect.width / 2
-                    -
+                    startRect.left +
+                    startRect.width / 2 -
                     portal.left
                 )
                 /
@@ -166,18 +144,14 @@ function generatePortalNetwork(data){
             )
             *
             100;
-
-
 
 
 
         const y1 =
             (
                 (
-                    startRect.top
-                    +
-                    startRect.height / 2
-                    -
+                    startRect.top +
+                    startRect.height / 2 -
                     portal.top
                 )
                 /
@@ -188,17 +162,11 @@ function generatePortalNetwork(data){
 
 
 
-
-
-
-
         const x2 =
             (
                 (
-                    endRect.left
-                    +
-                    endRect.width / 2
-                    -
+                    endRect.left +
+                    endRect.width / 2 -
                     portal.left
                 )
                 /
@@ -209,15 +177,11 @@ function generatePortalNetwork(data){
 
 
 
-
-
         const y2 =
             (
                 (
-                    endRect.top
-                    +
-                    endRect.height / 2
-                    -
+                    endRect.top +
+                    endRect.height / 2 -
                     portal.top
                 )
                 /
@@ -225,10 +189,6 @@ function generatePortalNetwork(data){
             )
             *
             100;
-
-
-
-
 
 
 
@@ -237,10 +197,6 @@ function generatePortalNetwork(data){
                 "http://www.w3.org/2000/svg",
                 "line"
             );
-
-
-
-
 
 
 
@@ -269,14 +225,10 @@ function generatePortalNetwork(data){
 
 
 
-
-
         line.setAttribute(
             "stroke",
             "rgba(212,175,55,.35)"
         );
-
-
 
 
 
@@ -287,20 +239,9 @@ function generatePortalNetwork(data){
 
 
 
-
-
         line.classList.add(
             "mythra-link"
         );
-
-
-/*
-|--------------------------------------------------------------------------
-| INTELIGÊNCIA DAS CONEXÕES MYTHRA
-|--------------------------------------------------------------------------
-*/
-
-
 
 
 
@@ -310,9 +251,6 @@ function generatePortalNetwork(data){
                 "module-",
                 ""
             );
-
-
-
 
 
 
@@ -326,11 +264,7 @@ function generatePortalNetwork(data){
 
 
 
-
-
-
         if(moduleState){
-
 
 
             const energy =
@@ -340,56 +274,36 @@ function generatePortalNetwork(data){
 
 
 
-
-
             line.dataset.energy =
                 energy;
 
 
 
-
-
-
             line.style.opacity =
-                0.35
-                +
+                0.35 +
                 (
                     energy / 250
                 );
 
 
 
-
-
-
             line.setAttribute(
                 "stroke-width",
                 (
-                    1
-                    +
+                    1 +
                     energy / 100
                 )
             );
-
-
-
 
 
         }
 
 
 
-
-
-
         if(
-            data.dominant
-            &&
-            data.dominant
-            ===
-            moduleName
+            data.dominant &&
+            data.dominant === moduleName
         ){
-
 
 
             line.classList.add(
@@ -401,16 +315,9 @@ function generatePortalNetwork(data){
 
 
 
-
-
-
-
         if(
-            data.risk
-            ===
-            true
+            data.risk === true
         ){
-
 
 
             line.classList.add(
@@ -422,20 +329,12 @@ function generatePortalNetwork(data){
 
 
 
-
-
-
-
         svg.appendChild(
             line
         );
 
 
-
     });
-
-
-
 
 
 
@@ -446,5 +345,332 @@ function generatePortalNetwork(data){
     );
 
 
+}
 
-}        
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| NAVEGAÇÃO DOS MÓDULOS MYTHRA
+|--------------------------------------------------------------------------
+*/
+
+
+function activatePortalModules(){
+
+
+    const modules = {
+
+
+        "module-core":
+            "core",
+
+
+        "module-talent":
+            "talent",
+
+
+        "module-marketing":
+            "marketing",
+
+
+        "module-vision":
+            "vision",
+
+
+        "module-academy":
+            "academy",
+
+
+        "module-insight":
+            "insight",
+
+
+        "module-essence":
+            "essence",
+
+
+        "module-business":
+            "business",
+
+
+        "module-nexus":
+            "nexus",
+
+
+        "module-enterprise":
+            "enterprise"
+
+
+    };
+
+
+
+
+
+    Object.keys(modules)
+    .forEach(className=>{
+
+
+        const element =
+            document.querySelector(
+                "." + className
+            );
+
+
+
+        if(!element)
+            return;
+
+
+
+        element.dataset.module =
+            modules[className];
+
+
+
+
+
+        element.addEventListener(
+            "click",
+            function(){
+
+
+                const module =
+                    this.dataset.module;
+
+
+
+                if(!module)
+                    return;
+
+
+
+                openModule(module);
+
+
+
+            }
+        );
+
+
+    });
+
+
+}
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| EFEITO DE ATIVAÇÃO
+|--------------------------------------------------------------------------
+*/
+
+
+function activateModuleHover(){
+
+
+    const hotspots =
+        document.querySelectorAll(
+            ".portal-hotspot"
+        );
+
+
+
+    hotspots.forEach(hotspot=>{
+
+
+        hotspot.addEventListener(
+            "mouseenter",
+            ()=>{
+
+
+                hotspot.classList.add(
+                    "active"
+                );
+
+
+            }
+        );
+
+
+
+        hotspot.addEventListener(
+            "mouseleave",
+            ()=>{
+
+
+                hotspot.classList.remove(
+                    "active"
+                );
+
+
+            }
+        );
+
+
+    });
+
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| ESTADO VIVO DO PORTAL
+|--------------------------------------------------------------------------
+*/
+
+
+async function loadPortalState(){
+
+
+    try{
+
+
+        const response =
+            await fetch(
+                "/portal/state"
+            );
+
+
+
+        const data =
+            await response.json();
+
+
+
+        generatePortalNetwork(
+            data
+        );
+
+
+
+        applyPortalEnergy(
+            data
+        );
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            "Erro ao carregar estado Mythra:",
+            error
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| ENERGIA DOS MÓDULOS
+|--------------------------------------------------------------------------
+*/
+
+
+function applyPortalEnergy(data){
+
+
+    if(
+        !data ||
+        !data.modules
+    )
+        return;
+
+
+
+    Object.keys(data.modules)
+    .forEach(module=>{
+
+
+        const hotspot =
+            document.querySelector(
+                ".module-" + module
+            );
+
+
+
+        if(!hotspot)
+            return;
+
+
+
+        const energy =
+            data.modules[module].energy
+            ||
+            50;
+
+
+
+        hotspot.style
+        .setProperty(
+            "--module-energy",
+            energy
+        );
+
+
+
+        if(
+            data.dominant &&
+            data.dominant === module
+        ){
+
+
+            hotspot.classList.add(
+                "dominant"
+            );
+
+
+        }
+
+
+    });
+
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| INICIALIZAÇÃO
+|--------------------------------------------------------------------------
+*/
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+
+        activatePortalModules();
+
+
+        activateModuleHover();
+
+
+        loadPortalState();
+
+
+    }
+);
