@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Services\Mythra\ModuleService;
 use Illuminate\Http\Request;
 
+
 class ModuleController extends Controller
 {
 
+
     protected ModuleService $modules;
+
 
 
     public function __construct(ModuleService $modules)
@@ -19,11 +22,14 @@ class ModuleController extends Controller
     }
 
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Lista todos os módulos
     |--------------------------------------------------------------------------
     */
+
 
     public function index()
     {
@@ -38,22 +44,74 @@ class ModuleController extends Controller
     }
 
 
+
+
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Exibe um domínio
     |--------------------------------------------------------------------------
     */
 
+
     public function show(string $module)
     {
 
-        $domain = $this->modules->find($module);
+
+        $domain =
+            $this->modules->find($module);
+
+
+
 
         if(!$domain){
 
+
             abort(404);
 
+
         }
+
+
+
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Tela especial Mythra Core
+        |--------------------------------------------------------------------------
+        */
+
+
+        if($module === 'core'){
+
+
+            return view(
+                'modules.core',
+                [
+                    'module' => $domain
+                ]
+            );
+
+
+        }
+
+
+
+
+
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Tela padrão dos Domínios
+        |--------------------------------------------------------------------------
+        */
+
 
         return view(
             'modules.show',
@@ -62,7 +120,15 @@ class ModuleController extends Controller
             ]
         );
 
+
     }
+
+
+
+
+
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -70,10 +136,15 @@ class ModuleController extends Controller
     |--------------------------------------------------------------------------
     */
 
+
     public function search(Request $request)
     {
 
-        $term = $request->input('q', '');
+
+        $term =
+            $request->input('q','');
+
+
 
         return response()->json(
 
@@ -81,7 +152,14 @@ class ModuleController extends Controller
 
         );
 
+
     }
+
+
+
+
+
+
 
 
     /*
@@ -90,8 +168,10 @@ class ModuleController extends Controller
     |--------------------------------------------------------------------------
     */
 
+
     public function api()
     {
+
 
         return response()->json(
 
@@ -99,6 +179,9 @@ class ModuleController extends Controller
 
         );
 
+
     }
 
-}    
+
+
+}

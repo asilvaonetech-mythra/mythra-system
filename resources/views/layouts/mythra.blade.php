@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/portal-effects.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/css/core.css') }}">
 
     {{-- Biblioteca e Domínios Mythra --}}
     <link rel="stylesheet" href="{{ asset('assets/css/modules.css') }}">
@@ -96,6 +97,7 @@
 {{-- Núcleo Mythra --}}
 <script src="{{ asset('assets/js/mythra.js') }}"></script>
 
+<script src="{{ asset('assets/js/core.js') }}"></script>
 
 
 </body>

@@ -1,0 +1,199 @@
+/*
+|--------------------------------------------------------------------------
+| MYTHRA CORE
+| Interface do Núcleo Central
+|--------------------------------------------------------------------------
+*/
+
+
+.mythra-core {
+
+    min-height:100vh;
+
+    padding:60px;
+
+    color:#ffffff;
+
+    background:
+    radial-gradient(
+        circle at top,
+        rgba(212,175,55,.18),
+        transparent 45%
+    );
+
+}
+
+
+
+.core-header {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:30px;
+
+    margin-bottom:50px;
+
+}
+
+
+
+.core-symbol {
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:45px;
+
+    color:#D4AF37;
+
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(212,175,55,.3),
+        rgba(138,43,226,.15)
+    );
+
+
+    border:
+    1px solid rgba(212,175,55,.5);
+
+
+    box-shadow:
+    0 0 35px rgba(212,175,55,.4);
+
+}
+
+
+
+.core-header h1 {
+
+    margin:0;
+
+    font-size:42px;
+
+    color:#D4AF37;
+
+}
+
+
+
+.core-header p {
+
+    color:#cccccc;
+
+    font-size:18px;
+
+}
+
+
+
+
+.core-grid {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(300px,1fr)
+    );
+
+    gap:25px;
+
+}
+
+
+
+
+.core-card {
+
+
+    padding:28px;
+
+
+    border-radius:20px;
+
+
+    background:
+    rgba(13,13,13,.7);
+
+
+    border:
+    1px solid rgba(138,43,226,.35);
+
+
+    backdrop-filter:blur(10px);
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+.core-card:hover {
+
+
+    transform:translateY(-5px);
+
+
+    border-color:#D4AF37;
+
+
+    box-shadow:
+    0 0 30px rgba(212,175,55,.15);
+
+
+}
+
+
+
+.core-card h2 {
+
+    color:#D4AF37;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.core-card p {
+
+    color:#dddddd;
+
+    line-height:1.6;
+
+}
+
+
+
+.core-card ul {
+
+    padding-left:20px;
+
+}
+
+
+
+.core-card li {
+
+    margin-bottom:10px;
+
+    color:#cccccc;
+
+}

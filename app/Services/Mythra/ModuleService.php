@@ -5,6 +5,8 @@ namespace App\Services\Mythra;
 use App\Support\Mythra\Modules;
 use App\Support\Mythra\Domains;
 use App\Support\Mythra\Journeys;
+use App\Support\Mythra\Core;
+
 
 
 class ModuleService
@@ -16,6 +18,7 @@ class ModuleService
     | Retorna um módulo completo
     |--------------------------------------------------------------------------
     */
+
 
     public function find(string $module): ?array
     {
@@ -33,9 +36,10 @@ class ModuleService
 
 
 
+
         /*
         |--------------------------------------------------------------------------
-        | Complementos do Domínio
+        | Complementos dos Domínios
         |--------------------------------------------------------------------------
         */
 
@@ -51,6 +55,28 @@ class ModuleService
 
 
 
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Mythra Core
+        |--------------------------------------------------------------------------
+        */
+
+
+        if($module === 'core'){
+
+
+            $data['core'] =
+                Core::data();
+
+
+        }
+
+
+
+
+
         /*
         |--------------------------------------------------------------------------
         | Jornada do Atendente
@@ -61,9 +87,11 @@ class ModuleService
         if(isset($data['attendant']['name'])){
 
 
-            $journey = Journeys::find(
-                $data['attendant']['name']
-            );
+            $journey =
+                Journeys::find(
+                    $data['attendant']['name']
+                );
+
 
 
             if($journey){
@@ -80,10 +108,14 @@ class ModuleService
 
 
 
+
         return $data;
 
 
     }
+
+
+
 
 
 
@@ -93,6 +125,7 @@ class ModuleService
     | Todos os módulos
     |--------------------------------------------------------------------------
     */
+
 
     public function all(): array
     {
@@ -106,11 +139,15 @@ class ModuleService
 
 
 
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Módulos ordenados
     |--------------------------------------------------------------------------
     */
+
 
     public function ordered(): array
     {
@@ -124,11 +161,15 @@ class ModuleService
 
 
 
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Pesquisa
     |--------------------------------------------------------------------------
     */
+
 
     public function search(string $term): array
     {
@@ -174,6 +215,7 @@ class ModuleService
 
 
     }
+
 
 
 }
