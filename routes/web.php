@@ -1,10 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\CoreController;
-use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Core\RoleController;
+use App\Http\Controllers\Core\PermissionController;
+use App\Http\Controllers\Core\UserRoleController;
 
 
 /*
@@ -12,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 | Página Inicial
 |--------------------------------------------------------------------------
 */
-
 
 Route::get('/', function () {
 
@@ -22,14 +26,11 @@ Route::get('/', function () {
 
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Autenticação Mythra
 |--------------------------------------------------------------------------
 */
-
 
 Route::get('/login', function () {
 
@@ -38,9 +39,13 @@ Route::get('/login', function () {
 })->name('login');
 
 
-
-Route::post('/login', [AuthController::class, 'login']);
-
+Route::post(
+    '/login',
+    [
+        AuthController::class,
+        'login'
+    ]
+);
 
 
 
@@ -51,17 +56,23 @@ Route::get('/register', function () {
 })->name('register');
 
 
-
-Route::post('/register', [AuthController::class, 'register']);
-
-
-
-Route::post('/logout', [AuthController::class, 'logout']);
-
-
-
+Route::post(
+    '/register',
+    [
+        AuthController::class,
+        'register'
+    ]
+);
 
 
+
+Route::post(
+    '/logout',
+    [
+        AuthController::class,
+        'logout'
+    ]
+);
 
 
 
@@ -71,17 +82,15 @@ Route::post('/logout', [AuthController::class, 'logout']);
 |--------------------------------------------------------------------------
 */
 
-
 Route::middleware('auth')->group(function () {
 
 
 
     /*
     |--------------------------------------------------------------------------
-    | Estado Vivo do Portal
+    | Estado Vivo Portal
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/portal/state',
@@ -95,15 +104,11 @@ Route::middleware('auth')->group(function () {
 
 
 
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Entrada Portal
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/portal',
@@ -117,16 +122,11 @@ Route::middleware('auth')->group(function () {
 
 
 
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Mythra Core
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/portal/core',
@@ -136,7 +136,6 @@ Route::middleware('auth')->group(function () {
         ]
     )
     ->name('core.index');
-
 
 
     Route::get(
@@ -152,16 +151,11 @@ Route::middleware('auth')->group(function () {
 
 
 
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Módulos Mythra
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/portal/modules',
@@ -171,7 +165,6 @@ Route::middleware('auth')->group(function () {
         ]
     )
     ->name('modules.index');
-
 
 
 
@@ -186,7 +179,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-
     Route::get(
         '/portal/module/api',
         [
@@ -195,7 +187,6 @@ Route::middleware('auth')->group(function () {
         ]
     )
     ->name('modules.api');
-
 
 
 
@@ -209,5 +200,107 @@ Route::middleware('auth')->group(function () {
     ->name('modules.show');
 
 
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CORE RBAC
+    |--------------------------------------------------------------------------
+    */
+
+
+    Route::prefix('core')
+        ->name('core.')
+        ->group(function () {
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Roles
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'roles',
+                RoleController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Permissions
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'permissions',
+                PermissionController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Usuários x Roles
+            |--------------------------------------------------------------------------
+            */
+
+            Route::get(
+                'user-roles',
+                [
+                    UserRoleController::class,
+                    'index'
+                ]
+            )
+            ->name('user-roles.index');
+
+
+
+            Route::get(
+                'user-roles/{user}/edit',
+                [
+                    UserRoleController::class,
+                    'edit'
+                ]
+            )
+            ->name('user-roles.edit');
+
+
+
+            Route::put(
+                'user-roles/{user}',
+                [
+                    UserRoleController::class,
+                    'update'
+                ]
+            )
+            ->name('user-roles.update');
+
+
+
+            Route::post(
+                'user-roles/{user}/attach',
+                [
+                    UserRoleController::class,
+                    'attach'
+                ]
+            )
+            ->name('user-roles.attach');
+
+
+
+            Route::delete(
+                'user-roles/{user}/{role}',
+                [
+                    UserRoleController::class,
+                    'detach'
+                ]
+            )
+            ->name('user-roles.detach');
+
+        });
 
 });

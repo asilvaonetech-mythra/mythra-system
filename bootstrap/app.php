@@ -6,46 +6,47 @@ use Illuminate\Foundation\Configuration\Middleware;
 
 use App\Http\Middleware\CheckPermission;
 
-return Application::configure(basePath: dirname(__DIR__))
 
-    ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
-        health: '/up',
-    )
+return Application::configure(
+    basePath: dirname(__DIR__)
+)
 
-    ->withMiddleware(function (Middleware $middleware): void {
+->withRouting(
 
-        /*
-        |--------------------------------------------------------------------------
-        | Middlewares Globais
-        |--------------------------------------------------------------------------
-        */
+    web: __DIR__.'/../routes/web.php',
 
-        $middleware->append([
-            //
-        ]);
+    commands: __DIR__.'/../routes/console.php',
+
+    health: '/up',
+
+)
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Aliases
-        |--------------------------------------------------------------------------
-        */
+->withMiddleware(function (Middleware $middleware): void {
 
-        $middleware->alias([
 
-            'permission' => CheckPermission::class,
+    /*
+    |--------------------------------------------------------------------------
+    | Aliases
+    |--------------------------------------------------------------------------
+    */
 
-        ]);
 
-    })
+    $middleware->alias([
 
-    ->withExceptions(function (Exceptions $exceptions): void {
+        'permission' => CheckPermission::class,
 
-        //
+    ]);
 
-    })
+})
 
-    ->create();
+
+->withExceptions(function (Exceptions $exceptions): void {
+
+
+    //
+
+})
+
+
+->create();
