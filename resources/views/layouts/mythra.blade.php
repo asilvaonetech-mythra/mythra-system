@@ -21,10 +21,17 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/portal-effects.css') }}">
 
+
+    {{-- Biblioteca e Domínios Mythra --}}
     <link rel="stylesheet" href="{{ asset('assets/css/modules.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/modules-library.css') }}">
+
+
 
     {{-- Atendentes Mythra --}}
     <link rel="stylesheet" href="{{ asset('assets/css/portal-agents.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/portal-assistant.css') }}">
 
 
@@ -33,6 +40,7 @@
 
 
 <body>
+
 
 
 <div id="mythra-universe">
@@ -55,12 +63,22 @@
 
 
 
-{{-- Portal --}}
+
+
+{{-- Núcleo de Navegação Mythra --}}
+<script src="{{ asset('assets/js/module-router.js') }}"></script>
+
+
+
+
+{{-- Portal Mythra --}}
 <script src="{{ asset('assets/js/portal.js') }}"></script>
 
 <script src="{{ asset('assets/js/portal-orbs.js') }}"></script>
 
 <script src="{{ asset('assets/js/portal-effects.js') }}"></script>
+
+
 
 
 
@@ -71,7 +89,9 @@
 
 <script src="{{ asset('assets/js/portal-assistant.js') }}"></script>
 
-<script src="{{ asset('assets/js/module-router.js') }}"></script>
+
+
+
 
 {{-- Núcleo Mythra --}}
 <script src="{{ asset('assets/js/mythra.js') }}"></script>

@@ -1,0 +1,412 @@
+/*
+|--------------------------------------------------------------------------
+| MYTHRA LIBRARY
+| Biblioteca Oficial dos Domínios
+|--------------------------------------------------------------------------
+*/
+
+
+.mythra-library {
+
+    min-height:100vh;
+
+    padding:60px;
+
+    color:#ffffff;
+
+    background:
+
+    radial-gradient(
+        circle at top,
+        rgba(138,43,226,.20),
+        transparent 45%
+    );
+
+}
+
+
+
+
+.library-header {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    margin-bottom:50px;
+
+}
+
+
+
+.library-symbol {
+
+
+    width:85px;
+
+    height:85px;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:50%;
+
+
+    font-size:45px;
+
+
+    color:#D4AF37;
+
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(212,175,55,.25),
+        rgba(138,43,226,.15)
+    );
+
+
+    border:
+
+    1px solid rgba(212,175,55,.5);
+
+
+    box-shadow:
+
+    0 0 35px rgba(212,175,55,.35);
+
+}
+
+
+
+
+.library-header h1 {
+
+
+    margin:0;
+
+
+    font-size:42px;
+
+
+    color:#D4AF37;
+
+
+}
+
+
+
+.library-header p {
+
+
+    margin-top:8px;
+
+
+    color:#bbbbbb;
+
+
+    font-size:18px;
+
+
+}
+
+
+
+
+
+
+.library-grid {
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+    repeat(
+        auto-fit,
+        minmax(320px,1fr)
+    );
+
+
+    gap:30px;
+
+
+}
+
+
+
+
+
+.library-card {
+
+
+    position:relative;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:25px;
+
+
+    padding:30px;
+
+
+    min-height:170px;
+
+
+    text-decoration:none;
+
+
+    color:white;
+
+
+    background:
+
+    rgba(13,13,13,.75);
+
+
+    border-radius:25px;
+
+
+    border:
+
+    1px solid rgba(138,43,226,.35);
+
+
+    backdrop-filter:blur(12px);
+
+
+    overflow:hidden;
+
+
+    transition:.35s ease;
+
+
+
+}
+
+
+
+
+.library-card::before {
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    background:
+
+    radial-gradient(
+        circle at center,
+        var(--module-color),
+        transparent 70%
+    );
+
+
+    opacity:.12;
+
+
+}
+
+
+
+
+.library-card:hover {
+
+
+    transform:
+
+    translateY(-8px)
+    scale(1.02);
+
+
+    border-color:
+
+    var(--module-color);
+
+
+    box-shadow:
+
+    0 0 35px var(--module-color);
+
+
+}
+
+
+
+
+
+
+.library-icon {
+
+
+    position:relative;
+
+
+    z-index:2;
+
+
+    width:75px;
+
+
+    height:75px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    flex-shrink:0;
+
+
+    border-radius:50%;
+
+
+    font-size:38px;
+
+
+    color:#D4AF37;
+
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(212,175,55,.3),
+        rgba(138,43,226,.25)
+    );
+
+
+    border:
+
+    1px solid var(--module-color);
+
+
+    box-shadow:
+
+    0 0 25px var(--module-color);
+
+
+}
+
+
+
+
+
+.library-content {
+
+
+    position:relative;
+
+
+    z-index:2;
+
+
+}
+
+
+
+
+.library-content h2 {
+
+
+    margin:0 0 10px;
+
+
+    color:#D4AF37;
+
+
+    font-size:25px;
+
+
+}
+
+
+
+
+.library-content p {
+
+
+    margin:0 0 12px;
+
+
+    color:#cccccc;
+
+
+    line-height:1.5;
+
+
+}
+
+
+
+
+.library-content span {
+
+
+    display:block;
+
+
+    color:#eeeeee;
+
+
+    font-size:14px;
+
+
+    line-height:1.5;
+
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+    .mythra-library {
+
+
+        padding:30px;
+
+    }
+
+
+
+    .library-card {
+
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+
+
+}
