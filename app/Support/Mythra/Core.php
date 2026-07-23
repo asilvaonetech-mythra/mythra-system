@@ -2,6 +2,8 @@
 
 namespace App\Support\Mythra;
 
+use App\Support\Mythra\Agents;
+
 
 class Core
 {
@@ -40,6 +42,7 @@ class Core
                     'Princípios, valores e diretrizes que orientam todo o Ecossistema Mythra.',
 
 
+
                 'items' => [
 
 
@@ -58,6 +61,28 @@ class Core
                     'Conexão inteligente'
 
 
+                ],
+
+
+
+                'details' => [
+
+                    'purpose' =>
+                        'Estabelecer os fundamentos que orientam a criação, evolução e integração do Ecossistema Mythra.',
+
+
+                    'functions' => [
+
+                        'Definir princípios institucionais',
+
+                        'Orientar decisões estratégicas',
+
+                        'Preservar a identidade Mythra',
+
+                        'Garantir evolução contínua'
+
+                    ]
+
                 ]
 
 
@@ -66,9 +91,12 @@ class Core
 
 
 
+
+
+
             /*
             |--------------------------------------------------------------------------
-            | Mapa do Ecossistema
+            | Mapa Vivo do Ecossistema
             |--------------------------------------------------------------------------
             */
 
@@ -80,8 +108,10 @@ class Core
                     'Mapa Vivo do Ecossistema',
 
 
+
                 'description' =>
                     'Representação dos Domínios Mythra e suas conexões estratégicas.',
+
 
 
                 'items' => [
@@ -114,10 +144,35 @@ class Core
                     'Mythra Nexus'
 
 
+                ],
+
+
+
+                'details' => [
+
+                    'purpose' =>
+                        'Apresentar a estrutura viva dos Domínios que compõem a Mythra.',
+
+
+                    'functions' => [
+
+                        'Visualizar Domínios',
+
+                        'Conectar módulos',
+
+                        'Organizar experiências',
+
+                        'Representar evolução sistêmica'
+
+                    ]
+
                 ]
 
 
             ],
+
+
+
 
 
 
@@ -136,8 +191,15 @@ class Core
                     'Agentes Mythra',
 
 
+
                 'description' =>
                     'Núcleo responsável pelas jornadas e experiências dos usuários.',
+
+
+
+                'agents' =>
+                    Agents::all(),
+
 
 
                 'items' => [
@@ -170,17 +232,37 @@ class Core
                     'Íris - Percepção'
 
 
+                ],
+
+
+
+                'details' => [
+
+                    'purpose' =>
+                        'Criar conexões humanas e orientar jornadas dentro do Ecossistema Mythra.',
+
+
+
+                    'functions' => [
+
+                        'Acolher usuários',
+
+                        'Orientar jornadas',
+
+                        'Conectar Domínios',
+
+                        'Facilitar experiências'
+
+                    ]
+
                 ]
 
 
             ],
 
-
-
-
-            /*
+                        /*
             |--------------------------------------------------------------------------
-            | Jornadas
+            | Jornadas Mythra
             |--------------------------------------------------------------------------
             */
 
@@ -192,8 +274,10 @@ class Core
                     'Jornadas Mythra',
 
 
+
                 'description' =>
                     'Experiências guiadas através dos Agentes e Domínios.',
+
 
 
                 'items' => [
@@ -217,10 +301,36 @@ class Core
                     'Jornada de Evolução'
 
 
+                ],
+
+
+
+                'details' => [
+
+                    'purpose' =>
+                        'Organizar experiências personalizadas para cada usuário dentro da Mythra.',
+
+
+
+                    'functions' => [
+
+                        'Mapear necessidades',
+
+                        'Direcionar experiências',
+
+                        'Conectar agentes',
+
+                        'Acompanhar evolução'
+
+                    ]
+
                 ]
 
 
             ],
+
+
+
 
 
 
@@ -239,8 +349,10 @@ class Core
                     'Mythra Nexus',
 
 
+
                 'description' =>
                     'Centro de integração responsável pela conexão dos Domínios.',
+
 
 
                 'items' => [
@@ -258,6 +370,29 @@ class Core
                     'Coordenação sistêmica'
 
 
+                ],
+
+
+
+                'details' => [
+
+                    'purpose' =>
+                        'Garantir que todos os Domínios Mythra atuem de forma integrada.',
+
+
+
+                    'functions' => [
+
+                        'Integrar módulos',
+
+                        'Coordenar informações',
+
+                        'Conectar experiências',
+
+                        'Manter unidade sistêmica'
+
+                    ]
+
                 ]
 
 
@@ -266,9 +401,12 @@ class Core
 
 
 
+
+
+
             /*
             |--------------------------------------------------------------------------
-            | Estado Vivo
+            | Estado Vivo Mythra
             |--------------------------------------------------------------------------
             */
 
@@ -280,8 +418,10 @@ class Core
                     'Estado Vivo Mythra',
 
 
+
                 'description' =>
                     'Acompanhamento da evolução do Ecossistema Mythra.',
+
 
 
                 'items' => [
@@ -298,6 +438,29 @@ class Core
 
                     'Integração dos Núcleos'
 
+
+                ],
+
+
+
+                'details' => [
+
+                    'purpose' =>
+                        'Monitorar a evolução e o funcionamento do Ecossistema Mythra.',
+
+
+
+                    'functions' => [
+
+                        'Acompanhar Domínios',
+
+                        'Avaliar atividade',
+
+                        'Identificar evolução',
+
+                        'Observar integração'
+
+                    ]
 
                 ]
 
