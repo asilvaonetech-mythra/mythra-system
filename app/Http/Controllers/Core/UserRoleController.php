@@ -3,35 +3,47 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\User;
 use App\Models\Role;
+
 use Illuminate\Http\Request;
+
 
 class UserRoleController extends Controller
 {
+
+
     /**
-     * Lista usuários e roles.
+     * Lista usuários e suas roles.
      */
     public function index()
     {
+
         $users = User::with('roles')
             ->orderBy('name')
-            ->paginate(20);
+            ->get();
+
 
         return view(
             'core.user-roles.index',
             compact('users')
         );
+
     }
 
 
+
+
+
     /**
-     * Formulário atribuição.
+     * Tela de edição de roles.
      */
     public function edit(User $user)
     {
-        $roles = Role::active()
-            ->orderBy('display_name')
+
+        $roles = Role::where('is_active', true)
+            ->orderBy('name')
             ->get();
 
 
@@ -45,102 +57,141 @@ class UserRoleController extends Controller
                 'roles'
             )
         );
+
     }
 
 
+
+
+
     /**
-     * Atualizar roles do usuário.
+     * Atualiza roles do usuário.
      */
     public function update(
         Request $request,
         User $user
-    ) {
+    )
+    {
 
-        $data = $request->validate([
+
+        $request->validate([
 
             'roles' => [
                 'nullable',
                 'array'
             ],
 
-            'roles.*' => [
-                'exists:roles,id'
+            'primary_role' => [
+                'nullable'
             ],
 
         ]);
 
 
+
+
+        $roles = $request->roles ?? [];
+
+
+
         $user->roles()
-            ->sync(
-                $data['roles'] ?? []
-            );
+            ->sync($roles);
+
+
+
+
+
+        if ($request->primary_role) {
+
+
+            $user->roles()
+                ->updateExistingPivot(
+                    $roles,
+                    [
+                        'is_primary' => false
+                    ]
+                );
+
+
+
+            $user->roles()
+                ->updateExistingPivot(
+                    $request->primary_role,
+                    [
+                        'is_primary' => true,
+                        'assigned_at' => now()
+                    ]
+                );
+
+        }
+
 
 
         return redirect()
-            ->route(
-                'core.user-roles.index'
-            )
+            ->route('core.user-roles.index')
             ->with(
                 'success',
-                'Permissões do usuário atualizadas.'
+                'Roles atualizadas com sucesso.'
             );
+
     }
 
 
+
+
+
     /**
-     * Adicionar uma role.
+     * Vincula uma Role.
      */
     public function attach(
         Request $request,
         User $user
-    ) {
+    )
+    {
+
 
         $request->validate([
 
             'role_id' => [
-                'required',
-                'exists:roles,id'
-            ],
+                'required'
+            ]
 
         ]);
 
 
-        $user->roles()
-            ->syncWithoutDetaching([
 
-                $request->role_id => [
-
-                    'assigned_at' => now(),
-
-                ],
-
-            ]);
+        $user->assignRole(
+            $request->role_id
+        );
 
 
-        return back()
-            ->with(
-                'success',
-                'Role adicionada.'
-            );
+
+        return back();
+
     }
 
 
+
+
+
     /**
-     * Remover uma role.
+     * Remove Role.
      */
     public function detach(
         User $user,
         Role $role
-    ) {
-
-        $user->roles()
-            ->detach($role->id);
+    )
+    {
 
 
-        return back()
-            ->with(
-                'success',
-                'Role removida.'
-            );
+        $user->removeRole(
+            $role
+        );
+
+
+        return back();
+
     }
+
+
 }

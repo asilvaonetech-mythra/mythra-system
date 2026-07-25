@@ -77,6 +77,8 @@ Route::post(
 
 
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Portal Mythra
@@ -105,6 +107,7 @@ Route::middleware('auth')->group(function () {
 
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Entrada Portal
@@ -119,6 +122,7 @@ Route::middleware('auth')->group(function () {
         ]
     )
     ->name('portal');
+
 
 
 
@@ -147,6 +151,7 @@ Route::middleware('auth')->group(function () {
         ]
     )
     ->name('core.section');
+
 
 
 
@@ -205,6 +210,8 @@ Route::middleware('auth')->group(function () {
 
 
 
+
+
     /*
     |--------------------------------------------------------------------------
     | CORE RBAC
@@ -217,16 +224,27 @@ Route::middleware('auth')->group(function () {
 
 
 
+
             /*
             |--------------------------------------------------------------------------
             | Roles
             |--------------------------------------------------------------------------
             */
 
-            Route::resource(
-                'roles',
-                RoleController::class
-            );
+            Route::middleware('permission:roles.manage')
+                ->group(function () {
+
+
+                    Route::resource(
+                        'roles',
+                        RoleController::class
+                    );
+
+
+                });
+
+
+
 
 
 
@@ -237,10 +255,20 @@ Route::middleware('auth')->group(function () {
             |--------------------------------------------------------------------------
             */
 
-            Route::resource(
-                'permissions',
-                PermissionController::class
-            );
+            Route::middleware('permission:permissions.manage')
+                ->group(function () {
+
+
+                    Route::resource(
+                        'permissions',
+                        PermissionController::class
+                    );
+
+
+                });
+
+
+
 
 
 
@@ -251,58 +279,68 @@ Route::middleware('auth')->group(function () {
             |--------------------------------------------------------------------------
             */
 
-            Route::get(
-                'user-roles',
-                [
-                    UserRoleController::class,
-                    'index'
-                ]
-            )
-            ->name('user-roles.index');
+            Route::middleware('permission:users.roles')
+                ->group(function () {
+
+
+                    Route::get(
+                        'user-roles',
+                        [
+                            UserRoleController::class,
+                            'index'
+                        ]
+                    )
+                    ->name('user-roles.index');
 
 
 
-            Route::get(
-                'user-roles/{user}/edit',
-                [
-                    UserRoleController::class,
-                    'edit'
-                ]
-            )
-            ->name('user-roles.edit');
+                    Route::get(
+                        'user-roles/{user}/edit',
+                        [
+                            UserRoleController::class,
+                            'edit'
+                        ]
+                    )
+                    ->name('user-roles.edit');
 
 
 
-            Route::put(
-                'user-roles/{user}',
-                [
-                    UserRoleController::class,
-                    'update'
-                ]
-            )
-            ->name('user-roles.update');
+                    Route::put(
+                        'user-roles/{user}',
+                        [
+                            UserRoleController::class,
+                            'update'
+                        ]
+                    )
+                    ->name('user-roles.update');
 
 
 
-            Route::post(
-                'user-roles/{user}/attach',
-                [
-                    UserRoleController::class,
-                    'attach'
-                ]
-            )
-            ->name('user-roles.attach');
+                    Route::post(
+                        'user-roles/{user}/attach',
+                        [
+                            UserRoleController::class,
+                            'attach'
+                        ]
+                    )
+                    ->name('user-roles.attach');
 
 
 
-            Route::delete(
-                'user-roles/{user}/{role}',
-                [
-                    UserRoleController::class,
-                    'detach'
-                ]
-            )
-            ->name('user-roles.detach');
+                    Route::delete(
+                        'user-roles/{user}/{role}',
+                        [
+                            UserRoleController::class,
+                            'detach'
+                        ]
+                    )
+                    ->name('user-roles.detach');
+
+
+                });
+
+
+
 
 
 
@@ -314,12 +352,21 @@ Route::middleware('auth')->group(function () {
             |--------------------------------------------------------------------------
             */
 
-            Route::resource(
-                'settings',
-                SettingController::class
-            );
+            Route::middleware('permission:core.settings')
+                ->group(function () {
+
+
+                    Route::resource(
+                        'settings',
+                        SettingController::class
+                    );
+
+
+                });
+
 
 
         });
+
 
 });
