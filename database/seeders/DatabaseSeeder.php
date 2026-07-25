@@ -10,14 +10,16 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
+
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
+
         /*
         |--------------------------------------------------------------------------
-        | Seeders do Core
+        | Core Seeders
         |--------------------------------------------------------------------------
         */
 
@@ -27,12 +29,15 @@ class DatabaseSeeder extends Seeder
 
             PermissionSeeder::class,
 
+            SettingSeeder::class,
+
         ]);
+
 
 
         /*
         |--------------------------------------------------------------------------
-        | Usuário padrão (apenas para desenvolvimento)
+        | Usuário padrão desenvolvimento
         |--------------------------------------------------------------------------
         */
 
@@ -43,6 +48,7 @@ class DatabaseSeeder extends Seeder
             ],
 
             [
+
                 'name' => 'Test User',
 
                 'password' => bcrypt('password'),
@@ -50,5 +56,6 @@ class DatabaseSeeder extends Seeder
             ]
 
         );
+
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\CoreController;
 use App\Http\Controllers\Core\RoleController;
 use App\Http\Controllers\Core\PermissionController;
 use App\Http\Controllers\Core\UserRoleController;
+use App\Http\Controllers\Core\SettingController;
 
 
 /*
@@ -203,12 +204,12 @@ Route::middleware('auth')->group(function () {
 
 
 
+
     /*
     |--------------------------------------------------------------------------
     | CORE RBAC
     |--------------------------------------------------------------------------
     */
-
 
     Route::prefix('core')
         ->name('core.')
@@ -229,6 +230,7 @@ Route::middleware('auth')->group(function () {
 
 
 
+
             /*
             |--------------------------------------------------------------------------
             | Permissions
@@ -239,6 +241,7 @@ Route::middleware('auth')->group(function () {
                 'permissions',
                 PermissionController::class
             );
+
 
 
 
@@ -300,6 +303,22 @@ Route::middleware('auth')->group(function () {
                 ]
             )
             ->name('user-roles.detach');
+
+
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Configurações Globais
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'settings',
+                SettingController::class
+            );
+
 
         });
 
