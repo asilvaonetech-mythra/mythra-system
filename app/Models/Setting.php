@@ -2,12 +2,24 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Setting extends Model
 {
     use SoftDeletes;
+    use Auditable;
+
+
+
+    /**
+     * Módulo de auditoria.
+     */
+    protected string $auditModule = 'settings';
+
+
 
     /**
      * Campos preenchíveis.
@@ -47,6 +59,7 @@ class Setting extends Model
     ];
 
 
+
     /**
      * Conversões.
      */
@@ -67,6 +80,7 @@ class Setting extends Model
     ];
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Scopes
@@ -75,26 +89,58 @@ class Setting extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
+        return $query->where(
+
+            'is_active',
+
+            true
+
+        );
     }
+
 
 
     public function scopeAutoload($query)
     {
-        return $query->where('autoload', true);
+        return $query->where(
+
+            'autoload',
+
+            true
+
+        );
     }
+
 
 
     public function scopePublic($query)
     {
-        return $query->where('is_public', true);
+        return $query->where(
+
+            'is_public',
+
+            true
+
+        );
     }
 
 
-    public function scopeGroup($query, string $group)
-    {
-        return $query->where('group', $group);
+
+    public function scopeGroup(
+        $query,
+        string $group
+    ) {
+
+        return $query->where(
+
+            'group',
+
+            $group
+
+        );
+
     }
+
 
 
     /*
@@ -105,42 +151,72 @@ class Setting extends Model
 
     public function getValueAttribute($value)
     {
+
         if ($value === null) {
 
             return $this->default_value;
 
         }
 
+
         return match ($this->type) {
 
-            'boolean' => filter_var($value, FILTER_VALIDATE_BOOLEAN),
+
+            'boolean' => filter_var(
+
+                $value,
+
+                FILTER_VALIDATE_BOOLEAN
+
+            ),
+
 
             'integer' => (int) $value,
 
-            'float'   => (float) $value,
 
-            'json'    => json_decode($value, true),
+            'float' => (float) $value,
 
-            default   => $value,
+
+            'json' => json_decode(
+
+                $value,
+
+                true
+
+            ),
+
+
+            default => $value,
+
 
         };
+
     }
+
 
 
     public function setValueAttribute($value)
     {
+
         if (is_array($value)) {
 
             $this->attributes['value'] = json_encode(
+
                 $value,
+
                 JSON_UNESCAPED_UNICODE
+
             );
 
             return;
+
         }
 
+
         $this->attributes['value'] = $value;
+
     }
+
 
 
     public function getTypedValue()
@@ -149,16 +225,19 @@ class Setting extends Model
     }
 
 
+
     public function isEncrypted(): bool
     {
         return $this->encrypted;
     }
 
 
+
     public function isSystem(): bool
     {
         return $this->is_system;
     }
+
 
 
     public function isPublic(): bool

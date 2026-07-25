@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasRoles;
+use App\Traits\Auditable;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,6 +14,8 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
     use HasRoles;
+    use Auditable;
+
 
 
     /**
@@ -27,6 +30,7 @@ class User extends Authenticatable
     ];
 
 
+
     /**
      * Campos ocultos.
      */
@@ -38,6 +42,7 @@ class User extends Authenticatable
     ];
 
 
+
     /**
      * Conversões.
      */
@@ -46,8 +51,17 @@ class User extends Authenticatable
         return [
 
             'email_verified_at' => 'datetime',
+
             'password' => 'hashed',
 
         ];
     }
+
+
+
+    /**
+     * Configuração do módulo de auditoria.
+     */
+    protected string $auditModule = 'users';
+
 }

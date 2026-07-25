@@ -12,6 +12,7 @@ class Audit extends Model
     use SoftDeletes;
 
 
+
     /**
      * Campos preenchíveis.
      */
@@ -139,7 +140,7 @@ class Audit extends Model
     */
 
 
-    public function hasChanges(): bool
+    public function hasAuditChanges(): bool
     {
         return !empty($this->old_values)
             || !empty($this->new_values);
