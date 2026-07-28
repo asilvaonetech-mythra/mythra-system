@@ -2,60 +2,44 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
 
     /**
-     * Seed the application's database.
+     * Executa os seeders principais.
      */
     public function run(): void
     {
 
+
         /*
         |--------------------------------------------------------------------------
-        | Core Seeders
+        | Core Mythra
         |--------------------------------------------------------------------------
         */
 
+
         $this->call([
 
-            RoleSeeder::class,
 
             PermissionSeeder::class,
 
+
+            RoleSeeder::class,
+
+
+            UserSeeder::class,
+
+
             SettingSeeder::class,
+
 
         ]);
 
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Usuário padrão desenvolvimento
-        |--------------------------------------------------------------------------
-        */
-
-        User::firstOrCreate(
-
-            [
-                'email' => 'test@example.com',
-            ],
-
-            [
-
-                'name' => 'Test User',
-
-                'password' => bcrypt('password'),
-
-            ]
-
-        );
-
     }
+
 }

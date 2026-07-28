@@ -2,171 +2,108 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
 use Illuminate\Database\Seeder;
+
+use App\Models\Permission;
+
 
 class PermissionSeeder extends Seeder
 {
+
     /**
-     * Run the database seeds.
+     * Executa o seeder.
      */
     public function run(): void
     {
+
+
         $permissions = [
 
-            /*
-            |--------------------------------------------------------------------------
-            | Core
-            |--------------------------------------------------------------------------
-            */
 
             [
-                'module' => 'core',
-                'name' => 'Acessar Core',
-                'slug' => 'core.access',
+                'name' => 'Visualizar usuários',
+                'slug' => 'users.view',
+                'description' => 'Permite visualizar usuários do sistema.',
             ],
 
+
             [
-                'module' => 'core',
+                'name' => 'Criar usuários',
+                'slug' => 'users.create',
+                'description' => 'Permite criar usuários.',
+            ],
+
+
+            [
+                'name' => 'Editar usuários',
+                'slug' => 'users.edit',
+                'description' => 'Permite editar usuários.',
+            ],
+
+
+            [
+                'name' => 'Excluir usuários',
+                'slug' => 'users.delete',
+                'description' => 'Permite excluir usuários.',
+            ],
+
+
+            [
+                'name' => 'Restaurar usuários',
+                'slug' => 'users.restore',
+                'description' => 'Permite restaurar usuários excluídos.',
+            ],
+
+
+            [
+                'name' => 'Gerenciar roles de usuários',
+                'slug' => 'users.roles',
+                'description' => 'Permite vincular usuários a roles.',
+            ],
+
+
+            [
+                'name' => 'Gerenciar roles',
+                'slug' => 'roles.manage',
+                'description' => 'Permite gerenciar roles.',
+            ],
+
+
+            [
+                'name' => 'Gerenciar permissões',
+                'slug' => 'permissions.manage',
+                'description' => 'Permite gerenciar permissões.',
+            ],
+
+
+            [
                 'name' => 'Configurações do Core',
                 'slug' => 'core.settings',
+                'description' => 'Permite acessar configurações globais.',
             ],
 
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Usuários
-            |--------------------------------------------------------------------------
-            */
-
-            [
-                'module' => 'users',
-                'name' => 'Visualizar Usuários',
-                'slug' => 'users.view',
-            ],
-
-            [
-                'module' => 'users',
-                'name' => 'Criar Usuários',
-                'slug' => 'users.create',
-            ],
-
-            [
-                'module' => 'users',
-                'name' => 'Editar Usuários',
-                'slug' => 'users.edit',
-            ],
-
-            [
-                'module' => 'users',
-                'name' => 'Excluir Usuários',
-                'slug' => 'users.delete',
-            ],
-
-            [
-                'module' => 'users',
-                'name' => 'Gerenciar Papéis de Usuários',
-                'slug' => 'users.roles',
-            ],
-
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Roles
-            |--------------------------------------------------------------------------
-            */
-
-            [
-                'module' => 'roles',
-                'name' => 'Visualizar Papéis',
-                'slug' => 'roles.view',
-            ],
-
-            [
-                'module' => 'roles',
-                'name' => 'Criar Papéis',
-                'slug' => 'roles.create',
-            ],
-
-            [
-                'module' => 'roles',
-                'name' => 'Editar Papéis',
-                'slug' => 'roles.edit',
-            ],
-
-            [
-                'module' => 'roles',
-                'name' => 'Excluir Papéis',
-                'slug' => 'roles.delete',
-            ],
-
-            [
-                'module' => 'roles',
-                'name' => 'Gerenciar Papéis',
-                'slug' => 'roles.manage',
-            ],
-
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Permissões
-            |--------------------------------------------------------------------------
-            */
-
-            [
-                'module' => 'permissions',
-                'name' => 'Visualizar Permissões',
-                'slug' => 'permissions.view',
-            ],
-
-            [
-                'module' => 'permissions',
-                'name' => 'Criar Permissões',
-                'slug' => 'permissions.create',
-            ],
-
-            [
-                'module' => 'permissions',
-                'name' => 'Editar Permissões',
-                'slug' => 'permissions.edit',
-            ],
-
-            [
-                'module' => 'permissions',
-                'name' => 'Excluir Permissões',
-                'slug' => 'permissions.delete',
-            ],
-
-            [
-                'module' => 'permissions',
-                'name' => 'Gerenciar Permissões',
-                'slug' => 'permissions.manage',
-            ],
 
         ];
 
+
+
         foreach ($permissions as $permission) {
+
 
             Permission::updateOrCreate(
 
                 [
-                    'slug' => $permission['slug'],
+                    'slug' => $permission['slug']
                 ],
 
-                [
-                    'name'         => $permission['name'],
-                    'slug'         => $permission['slug'],
-                    'module'       => $permission['module'],
-                    'display_name' => $permission['name'],
-                    'description'  => null,
-                    'is_system'    => true,
-                    'is_active'    => true,
-                ]
+                $permission
 
             );
+
+
         }
+
+
     }
+
 }

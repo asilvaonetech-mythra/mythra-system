@@ -6,15 +6,15 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PermissionMiddleware
+class RoleMiddleware
 {
     /**
-     * Verifica permissão do usuário.
+     * Verifica role do usuário.
      */
     public function handle(
         Request $request,
         Closure $next,
-        string $permission
+        string $role
     ): Response {
 
         if (!auth()->check()) {
@@ -24,7 +24,7 @@ class PermissionMiddleware
         }
 
 
-        if (!auth()->user()->hasPermission($permission)) {
+        if (!auth()->user()->hasRole($role)) {
 
             abort(403);
 

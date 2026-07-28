@@ -5,11 +5,13 @@ namespace App\Models;
 use App\Traits\Auditable;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Permission extends Model
 {
+
     use HasFactory;
     use SoftDeletes;
     use Auditable;
@@ -17,14 +19,14 @@ class Permission extends Model
 
 
     /**
-     * Nome da tabela.
+     * Tabela.
      */
     protected $table = 'permissions';
 
 
 
     /**
-     * Módulo de auditoria.
+     * Módulo auditoria.
      */
     protected string $auditModule = 'rbac';
 
@@ -39,13 +41,9 @@ class Permission extends Model
 
         'slug',
 
-        'module',
-
-        'display_name',
-
         'description',
 
-        'is_system',
+        'module',
 
         'is_active',
 
@@ -58,13 +56,11 @@ class Permission extends Model
 
 
     /**
-     * Conversões.
+     * Casts.
      */
     protected function casts(): array
     {
         return [
-
-            'is_system' => 'boolean',
 
             'is_active' => 'boolean',
 
@@ -100,7 +96,7 @@ class Permission extends Model
 
 
     /**
-     * Scope: permissões ativas.
+     * Apenas permissões ativas.
      */
     public function scopeActive($query)
     {
@@ -116,69 +112,27 @@ class Permission extends Model
 
 
     /**
-     * Scope: permissões do sistema.
+     * Verifica se está liberada para uma role.
      */
-    public function scopeSystem($query)
+    public function isAllowedFor(Role $role): bool
     {
-        return $query->where(
-
-            'is_system',
-
-            true
-
-        );
-    }
-
-
-
-    /**
-     * Scope: permissões customizadas.
-     */
-    public function scopeCustom($query)
-    {
-        return $query->where(
-
-            'is_system',
-
-            false
-
-        );
-    }
-
-
-
-    /**
-     * Scope por módulo.
-     */
-    public function scopeModule(
-        $query,
-        string $module
-    ) {
-
-        return $query->where(
-
-            'module',
-
-            $module
-
-        );
-
-    }
-
-
-
-    /**
-     * Verifica se pertence a uma Role.
-     */
-    public function belongsToRole(
-        string $role
-    ): bool {
 
         return $this->roles()
 
             ->where(
-                'slug',
-                $role
+
+                'roles.id',
+
+                $role->id
+
+            )
+
+            ->wherePivot(
+
+                'allowed',
+
+                true
+
             )
 
             ->exists();
@@ -186,88 +140,4 @@ class Permission extends Model
     }
 
 
-
-    /**
-     * Vincula uma Role.
-     */
-    public function assignRole(
-        $role
-    ): void {
-
-
-        if ($role instanceof Role) {
-
-            $roleId = $role->id;
-
-        } else {
-
-            $roleId = Role::where(
-                'slug',
-                $role
-            )->value('id');
-
-        }
-
-
-
-        if (!$roleId) {
-
-            return;
-
-        }
-
-
-
-        $this->roles()
-            ->syncWithoutDetaching([
-
-                $roleId => [
-
-                    'allowed' => true,
-
-                    'granted_at' => now(),
-
-                ],
-
-            ]);
-
-    }
-
-
-
-    /**
-     * Remove uma Role.
-     */
-    public function removeRole(
-        $role
-    ): void {
-
-
-        if ($role instanceof Role) {
-
-            $roleId = $role->id;
-
-        } else {
-
-            $roleId = Role::where(
-                'slug',
-                $role
-            )->value('id');
-
-        }
-
-
-
-        if (!$roleId) {
-
-            return;
-
-        }
-
-
-
-        $this->roles()
-            ->detach($roleId);
-
-    }
 }

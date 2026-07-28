@@ -4,8 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
-use App\Http\Middleware\CheckPermission;
-
+use App\Http\Middleware\PermissionMiddleware;
+use App\Http\Middleware\RoleMiddleware;
 
 return Application::configure(
     basePath: dirname(__DIR__)
@@ -21,32 +21,31 @@ return Application::configure(
 
 )
 
-
-->withMiddleware(function (Middleware $middleware): void {
+->withMiddleware(function (Middleware $middleware) {
 
 
     /*
     |--------------------------------------------------------------------------
-    | Aliases
+    | Middlewares Globais
     |--------------------------------------------------------------------------
     */
 
 
     $middleware->alias([
 
-        'permission' => CheckPermission::class,
+        'permission' => PermissionMiddleware::class,
+
+        'role' => RoleMiddleware::class,
 
     ]);
 
+
 })
 
-
-->withExceptions(function (Exceptions $exceptions): void {
-
+->withExceptions(function (Exceptions $exceptions) {
 
     //
 
 })
-
 
 ->create();

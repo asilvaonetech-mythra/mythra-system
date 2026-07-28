@@ -3,13 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Audit extends Model
 {
-    use SoftDeletes;
+
+    use HasFactory;
+
+
+
+    /**
+     * Tabela.
+     */
+    protected $table = 'audits';
 
 
 
@@ -20,19 +27,17 @@ class Audit extends Model
 
         'user_id',
 
-        'event',
+        'module',
 
-        'auditable_type',
+        'action',
 
-        'auditable_id',
+        'model',
+
+        'model_id',
 
         'old_values',
 
         'new_values',
-
-        'module',
-
-        'description',
 
         'ip_address',
 
@@ -45,123 +50,44 @@ class Audit extends Model
     /**
      * Conversões.
      */
-    protected $casts = [
+    protected function casts(): array
+    {
+        return [
 
-        'old_values' => 'array',
+            'old_values' => 'array',
 
-        'new_values' => 'array',
+            'new_values' => 'array',
 
-    ];
+        ];
+    }
 
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Relacionamentos
-    |--------------------------------------------------------------------------
-    */
 
 
     /**
-     * Usuário responsável pela ação.
+     * Usuário responsável.
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(
+
             User::class
+
         );
     }
 
 
 
     /**
-     * Registro auditado.
+     * Registro afetado.
      */
-    public function auditable(): MorphTo
+    public function auditable()
     {
-        return $this->morphTo();
-    }
+        return $this->morphTo(
 
+            'model'
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Scopes
-    |--------------------------------------------------------------------------
-    */
-
-
-    public function scopeEvent(
-        $query,
-        string $event
-    ) {
-
-        return $query->where(
-            'event',
-            $event
         );
-
     }
 
 
-
-    public function scopeModule(
-        $query,
-        string $module
-    ) {
-
-        return $query->where(
-            'module',
-            $module
-        );
-
-    }
-
-
-
-    public function scopeUser(
-        $query,
-        int $userId
-    ) {
-
-        return $query->where(
-            'user_id',
-            $userId
-        );
-
-    }
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Helpers
-    |--------------------------------------------------------------------------
-    */
-
-
-    public function hasAuditChanges(): bool
-    {
-        return !empty($this->old_values)
-            || !empty($this->new_values);
-    }
-
-
-
-    public function getActionLabel(): string
-    {
-        return match ($this->event) {
-
-            'created' => 'Criado',
-
-            'updated' => 'Atualizado',
-
-            'deleted' => 'Excluído',
-
-            'restored' => 'Restaurado',
-
-            default => ucfirst($this->event),
-
-        };
-    }
 }

@@ -7,11 +7,11 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\CoreController;
 
+use App\Http\Controllers\Core\UserController;
 use App\Http\Controllers\Core\RoleController;
 use App\Http\Controllers\Core\PermissionController;
 use App\Http\Controllers\Core\UserRoleController;
 use App\Http\Controllers\Core\SettingController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +25,6 @@ Route::get('/', function () {
 
 });
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Autenticação Mythra
@@ -39,7 +37,6 @@ Route::get('/login', function () {
 
 })->name('login');
 
-
 Route::post(
     '/login',
     [
@@ -48,14 +45,11 @@ Route::post(
     ]
 );
 
-
-
 Route::get('/register', function () {
 
     return view('auth.register');
 
 })->name('register');
-
 
 Route::post(
     '/register',
@@ -65,8 +59,6 @@ Route::post(
     ]
 );
 
-
-
 Route::post(
     '/logout',
     [
@@ -75,10 +67,6 @@ Route::post(
     ]
 );
 
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Portal Mythra
@@ -86,8 +74,6 @@ Route::post(
 */
 
 Route::middleware('auth')->group(function () {
-
-
 
     /*
     |--------------------------------------------------------------------------
@@ -101,12 +87,7 @@ Route::middleware('auth')->group(function () {
             PortalController::class,
             'state'
         ]
-    )
-    ->name('portal.state');
-
-
-
-
+    )->name('portal.state');
 
     /*
     |--------------------------------------------------------------------------
@@ -120,12 +101,7 @@ Route::middleware('auth')->group(function () {
             PortalController::class,
             'index'
         ]
-    )
-    ->name('portal');
-
-
-
-
+    )->name('portal');
 
     /*
     |--------------------------------------------------------------------------
@@ -139,9 +115,7 @@ Route::middleware('auth')->group(function () {
             CoreController::class,
             'index'
         ]
-    )
-    ->name('core.index');
-
+    )->name('core.index');
 
     Route::get(
         '/portal/core/{section}',
@@ -149,13 +123,7 @@ Route::middleware('auth')->group(function () {
             CoreController::class,
             'show'
         ]
-    )
-    ->name('core.section');
-
-
-
-
-
+    )->name('core.section');
 
     /*
     |--------------------------------------------------------------------------
@@ -169,10 +137,7 @@ Route::middleware('auth')->group(function () {
             ModuleController::class,
             'index'
         ]
-    )
-    ->name('modules.index');
-
-
+    )->name('modules.index');
 
     Route::get(
         '/portal/module/search',
@@ -180,10 +145,7 @@ Route::middleware('auth')->group(function () {
             ModuleController::class,
             'search'
         ]
-    )
-    ->name('modules.search');
-
-
+    )->name('modules.search');
 
     Route::get(
         '/portal/module/api',
@@ -191,10 +153,7 @@ Route::middleware('auth')->group(function () {
             ModuleController::class,
             'api'
         ]
-    )
-    ->name('modules.api');
-
-
+    )->name('modules.api');
 
     Route::get(
         '/portal/{module}',
@@ -202,15 +161,7 @@ Route::middleware('auth')->group(function () {
             ModuleController::class,
             'show'
         ]
-    )
-    ->name('modules.show');
-
-
-
-
-
-
-
+    )->name('modules.show');
 
     /*
     |--------------------------------------------------------------------------
@@ -222,8 +173,21 @@ Route::middleware('auth')->group(function () {
         ->name('core.')
         ->group(function () {
 
+            /*
+            |--------------------------------------------------------------------------
+            | Usuários
+            |--------------------------------------------------------------------------
+            */
 
+            Route::middleware('permission:users.manage')
+                ->group(function () {
 
+                    Route::resource(
+                        'users',
+                        UserController::class
+                    );
+
+                });
 
             /*
             |--------------------------------------------------------------------------
@@ -234,20 +198,12 @@ Route::middleware('auth')->group(function () {
             Route::middleware('permission:roles.manage')
                 ->group(function () {
 
-
                     Route::resource(
                         'roles',
                         RoleController::class
                     );
 
-
                 });
-
-
-
-
-
-
 
             /*
             |--------------------------------------------------------------------------
@@ -258,20 +214,12 @@ Route::middleware('auth')->group(function () {
             Route::middleware('permission:permissions.manage')
                 ->group(function () {
 
-
                     Route::resource(
                         'permissions',
                         PermissionController::class
                     );
 
-
                 });
-
-
-
-
-
-
 
             /*
             |--------------------------------------------------------------------------
@@ -282,17 +230,13 @@ Route::middleware('auth')->group(function () {
             Route::middleware('permission:users.roles')
                 ->group(function () {
 
-
                     Route::get(
                         'user-roles',
                         [
                             UserRoleController::class,
                             'index'
                         ]
-                    )
-                    ->name('user-roles.index');
-
-
+                    )->name('user-roles.index');
 
                     Route::get(
                         'user-roles/{user}/edit',
@@ -300,10 +244,7 @@ Route::middleware('auth')->group(function () {
                             UserRoleController::class,
                             'edit'
                         ]
-                    )
-                    ->name('user-roles.edit');
-
-
+                    )->name('user-roles.edit');
 
                     Route::put(
                         'user-roles/{user}',
@@ -311,10 +252,7 @@ Route::middleware('auth')->group(function () {
                             UserRoleController::class,
                             'update'
                         ]
-                    )
-                    ->name('user-roles.update');
-
-
+                    )->name('user-roles.update');
 
                     Route::post(
                         'user-roles/{user}/attach',
@@ -322,10 +260,7 @@ Route::middleware('auth')->group(function () {
                             UserRoleController::class,
                             'attach'
                         ]
-                    )
-                    ->name('user-roles.attach');
-
-
+                    )->name('user-roles.attach');
 
                     Route::delete(
                         'user-roles/{user}/{role}',
@@ -333,18 +268,9 @@ Route::middleware('auth')->group(function () {
                             UserRoleController::class,
                             'detach'
                         ]
-                    )
-                    ->name('user-roles.detach');
-
+                    )->name('user-roles.detach');
 
                 });
-
-
-
-
-
-
-
 
             /*
             |--------------------------------------------------------------------------
@@ -355,18 +281,13 @@ Route::middleware('auth')->group(function () {
             Route::middleware('permission:core.settings')
                 ->group(function () {
 
-
                     Route::resource(
                         'settings',
                         SettingController::class
                     );
 
-
                 });
 
-
-
         });
-
 
 });
