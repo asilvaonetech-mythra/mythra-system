@@ -3,129 +3,37 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
-use App\Models\Role;
-use App\Models\Permission;
-
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
-
     /**
-     * Executa o seeder.
+     * Roles principais do Core Mythra.
      */
     public function run(): void
     {
-
-
         $roles = [
 
+            'Administrador',
 
-            [
-                'name' => 'Administrador',
-                'slug' => 'admin',
-                'display_name' => 'Administrador',
-                'description' => 'Acesso total ao sistema Mythra.',
-                'color' => '#D4AF37',
-                'icon' => 'shield',
-                'is_system' => true,
-                'is_active' => true,
-            ],
+            'Gestor',
 
+            'Operador',
 
-            [
-                'name' => 'Gestor',
-                'slug' => 'manager',
-                'display_name' => 'Gestor',
-                'description' => 'Gerenciamento operacional.',
-                'color' => '#8A2BE2',
-                'icon' => 'user-cog',
-                'is_system' => true,
-                'is_active' => true,
-            ],
+            'Talent',
 
-
-            [
-                'name' => 'Usuário',
-                'slug' => 'user',
-                'display_name' => 'Usuário',
-                'description' => 'Usuário padrão do sistema.',
-                'color' => '#6B7A3A',
-                'icon' => 'user',
-                'is_system' => true,
-                'is_active' => true,
-            ],
-
+            'Organização',
 
         ];
 
 
+        foreach ($roles as $role) {
 
-        foreach ($roles as $data) {
-
-
-            Role::updateOrCreate(
-
-                [
-                    'slug' => $data['slug']
-                ],
-
-                $data
-
-            );
-
+            Role::firstOrCreate([
+                'name' => $role,
+                'guard_name' => 'web',
+            ]);
 
         }
-
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Permissões Administrador
-        |--------------------------------------------------------------------------
-        */
-
-
-        $admin = Role::where(
-
-            'slug',
-
-            'admin'
-
-        )->first();
-
-
-
-        if ($admin) {
-
-
-            $permissions = Permission::pluck('id')
-                ->toArray();
-
-
-
-            foreach ($permissions as $permission) {
-
-
-                $admin->permissions()
-                    ->syncWithoutDetaching([
-
-                        $permission => [
-
-                            'allowed' => true,
-
-                            'granted_at' => now(),
-
-                        ]
-
-                    ]);
-
-
-            }
-
-
-        }
-
     }
-
 }

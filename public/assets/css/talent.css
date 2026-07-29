@@ -1,0 +1,486 @@
+/*
+|--------------------------------------------------------------------------
+| Mythra Talent
+|--------------------------------------------------------------------------
+| Domínio: Talent
+| Ecossistema: Mythra
+|--------------------------------------------------------------------------
+*/
+
+:root {
+
+    --talent-violet: #8A2BE2;
+    --talent-gold: #C1B16A;
+    --talent-olive: #6B7A3A;
+    --talent-black: #070A10;
+
+    --talent-surface: rgba(12, 16, 28, .72);
+    --talent-border: rgba(193, 177, 106, .22);
+
+    --talent-radius: 18px;
+    --talent-shadow: 0 20px 45px rgba(0, 0, 0, .35);
+
+}
+
+*{
+    box-sizing:border-box;
+}
+
+.mythra-domain{
+
+    width:100%;
+    max-width:1600px;
+
+    margin:0 auto;
+
+    padding:40px;
+
+}
+
+.domain-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:24px;
+
+    margin-bottom:40px;
+
+}
+
+.domain-symbol{
+
+    width:74px;
+
+    height:74px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:32px;
+
+    color:var(--talent-gold);
+
+    background:rgba(138,43,226,.15);
+
+    border:1px solid rgba(138,43,226,.35);
+
+    box-shadow:0 0 25px rgba(138,43,226,.35);
+
+}
+
+.domain-heading{
+
+    flex:1;
+
+}
+
+.domain-subtitle{
+
+    display:block;
+
+    color:var(--talent-gold);
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-size:12px;
+
+    margin-bottom:8px;
+
+}
+
+.domain-title{
+
+    margin:0;
+
+    color:#FFF;
+
+    font-size:42px;
+
+    font-weight:700;
+
+}
+
+.domain-description{
+
+    margin-top:12px;
+
+    color:#C7CBD4;
+
+    line-height:1.7;
+
+    max-width:850px;
+
+}
+
+.domain-navigation{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+
+    margin-bottom:35px;
+
+}
+
+.domain-navigation a{
+
+    text-decoration:none;
+
+    color:#FFF;
+
+    padding:12px 22px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.25s;
+
+}
+
+.domain-navigation a:hover{
+
+    color:var(--talent-gold);
+
+    border-color:var(--talent-gold);
+
+    transform:translateY(-2px);
+
+}
+
+.domain-content{
+
+    width:100%;
+
+}
+
+.talent-home{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:40px;
+
+}
+
+.talent-introduction{
+
+    padding:35px;
+
+    border-radius:var(--talent-radius);
+
+    background:var(--talent-surface);
+
+    border:1px solid var(--talent-border);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:var(--talent-shadow);
+
+}
+
+.talent-introduction h2{
+
+    margin:0 0 18px;
+
+    color:#FFF;
+
+    font-size:30px;
+
+}
+
+.talent-introduction p{
+
+    margin:0;
+
+    color:#C8CDD6;
+
+    line-height:1.9;
+
+}
+
+.talent-modules{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:24px;
+
+}
+
+.talent-card{
+
+    text-decoration:none;
+
+    color:inherit;
+
+    padding:28px;
+
+    border-radius:var(--talent-radius);
+
+    background:var(--talent-surface);
+
+    border:1px solid var(--talent-border);
+
+    backdrop-filter:blur(12px);
+
+    transition:.30s;
+
+    box-shadow:var(--talent-shadow);
+
+}
+
+.talent-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:var(--talent-violet);
+
+    box-shadow:
+        0 0 28px rgba(138,43,226,.25),
+        var(--talent-shadow);
+
+}
+
+.card-symbol{
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:20px;
+
+    font-size:28px;
+
+    color:var(--talent-gold);
+
+    background:rgba(138,43,226,.14);
+
+}
+
+.talent-card h3{
+
+    margin:0 0 12px;
+
+    color:#FFF;
+
+    font-size:22px;
+
+}
+
+.talent-card p{
+
+    margin:0;
+
+    color:#C8CDD6;
+
+    line-height:1.7;
+
+}
+
+.table-domain{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:var(--talent-surface);
+
+    border-radius:var(--talent-radius);
+
+    overflow:hidden;
+
+}
+
+.table-domain thead{
+
+    background:rgba(138,43,226,.18);
+
+}
+
+.table-domain th{
+
+    padding:18px;
+
+    text-align:left;
+
+    color:#FFF;
+
+    font-weight:600;
+
+}
+
+.table-domain td{
+
+    padding:18px;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+    color:#D5D8DE;
+
+}
+
+.table-domain tbody tr:hover{
+
+    background:rgba(255,255,255,.03);
+
+}
+
+.domain-actions{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-bottom:24px;
+
+}
+
+.btn-mythra{
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:999px;
+
+    padding:12px 22px;
+
+    text-decoration:none;
+
+    transition:.25s;
+
+    color:#FFF;
+
+    background:var(--talent-violet);
+
+}
+
+.btn-mythra:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 0 20px rgba(138,43,226,.45);
+
+}
+
+.badge-status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    letter-spacing:1px;
+
+}
+
+.status-ativo{
+
+    background:rgba(107,122,58,.18);
+
+    color:#B7D78D;
+
+}
+
+.status-inativo{
+
+    background:rgba(255,255,255,.08);
+
+    color:#AAA;
+
+}
+
+.status-analise{
+
+    background:rgba(193,177,106,.15);
+
+    color:var(--talent-gold);
+
+}
+
+.status-aberta{
+
+    background:rgba(107,122,58,.18);
+
+    color:#B7D78D;
+
+}
+
+.status-pausada{
+
+    background:rgba(193,177,106,.15);
+
+    color:var(--talent-gold);
+
+}
+
+.status-encerrada{
+
+    background:rgba(255,255,255,.08);
+
+    color:#AAA;
+
+}
+
+@media(max-width:900px){
+
+    .mythra-domain{
+
+        padding:20px;
+
+    }
+
+    .domain-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .domain-title{
+
+        font-size:32px;
+
+    }
+
+    .talent-modules{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

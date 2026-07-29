@@ -3,107 +3,69 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
-use App\Models\Permission;
-
+use Spatie\Permission\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
-
     /**
-     * Executa o seeder.
+     * Permissões gerais do Core Mythra.
      */
     public function run(): void
     {
-
-
         $permissions = [
 
+            /*
+            |--------------------------------------------------------------------------
+            | Core
+            |--------------------------------------------------------------------------
+            */
 
-            [
-                'name' => 'Visualizar usuários',
-                'slug' => 'users.view',
-                'description' => 'Permite visualizar usuários do sistema.',
-            ],
+            'core.access',
 
+            'core.settings',
 
-            [
-                'name' => 'Criar usuários',
-                'slug' => 'users.create',
-                'description' => 'Permite criar usuários.',
-            ],
+            'core.audit',
 
 
-            [
-                'name' => 'Editar usuários',
-                'slug' => 'users.edit',
-                'description' => 'Permite editar usuários.',
-            ],
+
+            /*
+            |--------------------------------------------------------------------------
+            | Portal
+            |--------------------------------------------------------------------------
+            */
+
+            'portal.access',
 
 
-            [
-                'name' => 'Excluir usuários',
-                'slug' => 'users.delete',
-                'description' => 'Permite excluir usuários.',
-            ],
 
+            /*
+            |--------------------------------------------------------------------------
+            | Usuários
+            |--------------------------------------------------------------------------
+            */
 
-            [
-                'name' => 'Restaurar usuários',
-                'slug' => 'users.restore',
-                'description' => 'Permite restaurar usuários excluídos.',
-            ],
+            'users.view',
 
+            'users.create',
 
-            [
-                'name' => 'Gerenciar roles de usuários',
-                'slug' => 'users.roles',
-                'description' => 'Permite vincular usuários a roles.',
-            ],
+            'users.update',
 
-
-            [
-                'name' => 'Gerenciar roles',
-                'slug' => 'roles.manage',
-                'description' => 'Permite gerenciar roles.',
-            ],
-
-
-            [
-                'name' => 'Gerenciar permissões',
-                'slug' => 'permissions.manage',
-                'description' => 'Permite gerenciar permissões.',
-            ],
-
-
-            [
-                'name' => 'Configurações do Core',
-                'slug' => 'core.settings',
-                'description' => 'Permite acessar configurações globais.',
-            ],
+            'users.delete',
 
 
         ];
 
 
-
         foreach ($permissions as $permission) {
 
+            Permission::firstOrCreate([
 
-            Permission::updateOrCreate(
+                'name' => $permission,
 
-                [
-                    'slug' => $permission['slug']
-                ],
+                'guard_name' => 'web',
 
-                $permission
-
-            );
-
+            ]);
 
         }
-
-
     }
-
 }
