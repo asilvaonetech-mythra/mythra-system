@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\TalentProfile;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\TalentProfile;
 use Illuminate\Http\Request;
 
 class TalentController extends Controller
@@ -13,8 +14,11 @@ class TalentController extends Controller
     public function index()
     {
         $talents = TalentProfile::with([
+
                 'user',
-                'talentSkills.skill'
+
+                'talentSkills.skill',
+
             ])
             ->latest()
             ->paginate(20);
@@ -30,14 +34,21 @@ class TalentController extends Controller
     /**
      * Visualização resumida do talento.
      */
-    public function show(TalentProfile $talentProfile)
-    {
+    public function show(
+        TalentProfile $talentProfile
+    ) {
         $talentProfile->load([
+
             'user',
+
             'resumes',
+
             'talentSkills.skill',
+
             'applications.opportunity.organization',
-            'evolutions'
+
+            'evolutions',
+
         ]);
 
 
@@ -55,7 +66,9 @@ class TalentController extends Controller
     {
         $query = TalentProfile::query()
             ->with([
-                'talentSkills.skill'
+
+                'talentSkills.skill',
+
             ]);
 
 

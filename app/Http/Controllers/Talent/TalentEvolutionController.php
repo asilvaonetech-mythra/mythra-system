@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\TalentEvolution;
-use App\Models\TalentProfile;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\TalentEvolution;
+use App\Models\Talent\TalentProfile;
 use Illuminate\Http\Request;
 
 class TalentEvolutionController extends Controller
@@ -50,30 +51,30 @@ class TalentEvolutionController extends Controller
 
             'talent_profile_id' => [
                 'required',
-                'exists:talent_profiles,id'
+                'exists:talent_profiles,id',
             ],
 
             'competencia' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'nivel_anterior' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'nivel_atual' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'observacao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
         ]);
@@ -94,8 +95,9 @@ class TalentEvolutionController extends Controller
     /**
      * Exibir evolução.
      */
-    public function show(TalentEvolution $talentEvolution)
-    {
+    public function show(
+        TalentEvolution $talentEvolution
+    ) {
         $talentEvolution->load('talentProfile');
 
 
@@ -107,36 +109,55 @@ class TalentEvolutionController extends Controller
 
 
     /**
+     * Editar evolução.
+     */
+    public function edit(
+        TalentEvolution $talentEvolution
+    ) {
+        $talents = TalentProfile::orderBy('nome_completo')
+            ->get();
+
+
+        return view(
+            'mythra.talent.evolutions.edit',
+            compact(
+                'talentEvolution',
+                'talents'
+            )
+        );
+    }
+
+
+    /**
      * Atualizar evolução.
      */
     public function update(
         Request $request,
         TalentEvolution $talentEvolution
-    )
-    {
+    ) {
         $validated = $request->validate([
 
             'competencia' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'nivel_anterior' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'nivel_atual' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'observacao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
         ]);
@@ -160,8 +181,9 @@ class TalentEvolutionController extends Controller
     /**
      * Remover evolução.
      */
-    public function destroy(TalentEvolution $talentEvolution)
-    {
+    public function destroy(
+        TalentEvolution $talentEvolution
+    ) {
         $talentEvolution->delete();
 
 

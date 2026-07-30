@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\TalentApplication;
-use App\Models\Opportunity;
-use App\Models\TalentProfile;
-use App\Models\SelectionProcess;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\TalentApplication;
+use App\Models\Talent\Opportunity;
+use App\Models\Talent\TalentProfile;
+use App\Models\Talent\SelectionProcess;
 use Illuminate\Http\Request;
 
 class TalentApplicationController extends Controller
@@ -16,9 +17,13 @@ class TalentApplicationController extends Controller
     public function index()
     {
         $applications = TalentApplication::with([
+
                 'talentProfile',
+
                 'opportunity.organization',
-                'selectionProcess'
+
+                'selectionProcess',
+
             ])
             ->latest()
             ->paginate(15);
@@ -39,11 +44,17 @@ class TalentApplicationController extends Controller
         $talents = TalentProfile::orderBy('nome_completo')
             ->get();
 
+
         $opportunities = Opportunity::where('status', 'aberta')
             ->orderBy('titulo')
             ->get();
 
-        $processes = SelectionProcess::where('status', '!=', 'cancelado')
+
+        $processes = SelectionProcess::where(
+                'status',
+                '!=',
+                'cancelado'
+            )
             ->orderBy('nome')
             ->get();
 
@@ -60,7 +71,7 @@ class TalentApplicationController extends Controller
 
 
     /**
-     * Criar uma conexão.
+     * Criar conexão.
      */
     public function store(Request $request)
     {
@@ -68,25 +79,28 @@ class TalentApplicationController extends Controller
 
             'talent_profile_id' => [
                 'required',
-                'exists:talent_profiles,id'
+                'exists:talent_profiles,id',
             ],
 
             'opportunity_id' => [
                 'required',
-                'exists:opportunities,id'
+                'exists:opportunities,id',
             ],
 
             'selection_process_id' => [
                 'nullable',
-                'exists:selection_processes,id'
+                'exists:selection_processes,id',
             ],
 
             'observacao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
         ]);
+
+
+        $validated['status'] = 'enviado';
 
 
         TalentApplication::create($validated);
@@ -104,12 +118,17 @@ class TalentApplicationController extends Controller
     /**
      * Exibir conexão.
      */
-    public function show(TalentApplication $talentApplication)
-    {
+    public function show(
+        TalentApplication $talentApplication
+    ) {
         $talentApplication->load([
+
             'talentProfile',
+
             'opportunity.organization',
-            'selectionProcess'
+
+            'selectionProcess',
+
         ]);
 
 
@@ -121,23 +140,35 @@ class TalentApplicationController extends Controller
 
 
     /**
+     * Editar conexão.
+     */
+    public function edit(
+        TalentApplication $talentApplication
+    ) {
+        return view(
+            'mythra.talent.applications.edit',
+            compact('talentApplication')
+        );
+    }
+
+
+    /**
      * Atualizar status da conexão.
      */
     public function update(
         Request $request,
         TalentApplication $talentApplication
-    )
-    {
+    ) {
         $validated = $request->validate([
 
             'status' => [
                 'required',
-                'in:enviado,em_analise,aprovado,reprovado,cancelado'
+                'in:enviado,em_analise,aprovado,reprovado,cancelado',
             ],
 
             'observacao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
         ]);
@@ -161,8 +192,9 @@ class TalentApplicationController extends Controller
     /**
      * Remover conexão.
      */
-    public function destroy(TalentApplication $talentApplication)
-    {
+    public function destroy(
+        TalentApplication $talentApplication
+    ) {
         $talentApplication->delete();
 
 

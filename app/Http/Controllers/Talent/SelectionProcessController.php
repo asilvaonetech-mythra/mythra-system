@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\SelectionProcess;
-use App\Models\Opportunity;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\SelectionProcess;
+use App\Models\Talent\Opportunity;
 use Illuminate\Http\Request;
 
 class SelectionProcessController extends Controller
@@ -51,21 +52,24 @@ class SelectionProcessController extends Controller
 
             'opportunity_id' => [
                 'required',
-                'exists:opportunities,id'
+                'exists:opportunities,id',
             ],
 
             'nome' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'descricao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
         ]);
+
+
+        $validated['status'] = 'aberto';
 
 
         SelectionProcess::create($validated);
@@ -86,8 +90,11 @@ class SelectionProcessController extends Controller
     public function show(SelectionProcess $selectionProcess)
     {
         $selectionProcess->load([
+
             'opportunity.organization',
-            'applications.talentProfile'
+
+            'applications.talentProfile',
+
         ]);
 
 
@@ -99,29 +106,48 @@ class SelectionProcessController extends Controller
 
 
     /**
+     * Editar processo.
+     */
+    public function edit(SelectionProcess $selectionProcess)
+    {
+        $opportunities = Opportunity::where('status', 'aberta')
+            ->orderBy('titulo')
+            ->get();
+
+
+        return view(
+            'mythra.talent.selection.edit',
+            compact(
+                'selectionProcess',
+                'opportunities'
+            )
+        );
+    }
+
+
+    /**
      * Atualizar processo.
      */
     public function update(
         Request $request,
         SelectionProcess $selectionProcess
-    )
-    {
+    ) {
         $validated = $request->validate([
 
             'nome' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'descricao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'status' => [
                 'nullable',
-                'in:aberto,em_andamento,finalizado,cancelado'
+                'in:aberto,em_andamento,finalizado,cancelado',
             ],
 
         ]);

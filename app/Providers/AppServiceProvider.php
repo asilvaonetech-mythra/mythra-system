@@ -10,16 +10,24 @@ use App\Services\AuditService;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      */
     public function register(): void
     {
-    
-    $this->app->register(
-        \App\Providers\MythraTalentServiceProvider::class
-    );
-}
+
+        /*
+        |--------------------------------------------------------------------------
+        | Provider Talent Mythra
+        |--------------------------------------------------------------------------
+        */
+
+        $this->app->register(
+            \App\Providers\MythraTalentServiceProvider::class
+        );
+
+
 
         /*
         |--------------------------------------------------------------------------
@@ -35,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
 
             }
         );
+
 
 
         $this->app->singleton(
@@ -57,5 +66,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         //
+
     }
+
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
+use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 
@@ -12,16 +13,15 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::latest()
+        $skills = Skill::query()
+            ->latest()
             ->paginate(20);
-
 
         return view(
             'mythra.talent.skills.index',
             compact('skills')
         );
     }
-
 
     /**
      * Formulário de criação.
@@ -33,7 +33,6 @@ class SkillController extends Controller
         );
     }
 
-
     /**
      * Criar competência.
      */
@@ -44,25 +43,25 @@ class SkillController extends Controller
             'nome' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'categoria' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'descricao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
         ]);
 
+        $validated['status'] = 'ativo';
 
         Skill::create($validated);
-
 
         return redirect()
             ->route('talent.skills.index')
@@ -72,7 +71,6 @@ class SkillController extends Controller
             );
     }
 
-
     /**
      * Exibir competência.
      */
@@ -80,16 +78,14 @@ class SkillController extends Controller
     {
         $skill->load([
             'talentSkills.talentProfile',
-            'opportunitySkills.opportunity'
+            'opportunitySkills.opportunity',
         ]);
-
 
         return view(
             'mythra.talent.skills.show',
             compact('skill')
         );
     }
-
 
     /**
      * Editar competência.
@@ -102,44 +98,40 @@ class SkillController extends Controller
         );
     }
 
-
     /**
      * Atualizar competência.
      */
     public function update(
         Request $request,
         Skill $skill
-    )
-    {
+    ) {
         $validated = $request->validate([
 
             'nome' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'categoria' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'descricao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'status' => [
-                'nullable',
-                'in:ativo,inativo'
+                'required',
+                'in:ativo,inativo',
             ],
 
         ]);
 
-
         $skill->update($validated);
-
 
         return redirect()
             ->route(
@@ -152,14 +144,12 @@ class SkillController extends Controller
             );
     }
 
-
     /**
      * Remover competência.
      */
     public function destroy(Skill $skill)
     {
         $skill->delete();
-
 
         return redirect()
             ->route('talent.skills.index')

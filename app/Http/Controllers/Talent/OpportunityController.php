@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\Opportunity;
-use App\Models\Organization;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\Opportunity;
+use App\Models\Talent\Organization;
 use Illuminate\Http\Request;
 
 class OpportunityController extends Controller
@@ -17,13 +18,11 @@ class OpportunityController extends Controller
             ->latest()
             ->paginate(15);
 
-
         return view(
             'mythra.talent.opportunities.index',
             compact('opportunities')
         );
     }
-
 
     /**
      * Formulário de criação.
@@ -34,13 +33,11 @@ class OpportunityController extends Controller
             ->orderBy('nome')
             ->get();
 
-
         return view(
             'mythra.talent.opportunities.create',
             compact('organizations')
         );
     }
-
 
     /**
      * Criar oportunidade.
@@ -51,41 +48,41 @@ class OpportunityController extends Controller
 
             'organization_id' => [
                 'required',
-                'exists:organizations,id'
+                'exists:organizations,id',
             ],
 
             'titulo' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'descricao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'modelo_trabalho' => [
                 'nullable',
-                'in:presencial,hibrido,remoto'
+                'in:presencial,hibrido,remoto',
             ],
 
             'localizacao' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'nivel' => [
                 'nullable',
-                'in:iniciante,intermediario,avancado,especialista'
+                'in:iniciante,intermediario,avancado,especialista',
             ],
 
         ]);
 
+        $validated['status'] = 'aberta';
 
         Opportunity::create($validated);
-
 
         return redirect()
             ->route('talent.opportunities.index')
@@ -95,26 +92,28 @@ class OpportunityController extends Controller
             );
     }
 
-
     /**
      * Visualizar oportunidade.
      */
     public function show(Opportunity $opportunity)
     {
         $opportunity->load([
-            'organization',
-            'opportunitySkills.skill',
-            'selectionProcesses',
-            'applications'
-        ]);
 
+            'organization',
+
+            'opportunitySkills.skill',
+
+            'selectionProcesses',
+
+            'applications',
+
+        ]);
 
         return view(
             'mythra.talent.opportunities.show',
             compact('opportunity')
         );
     }
-
 
     /**
      * Editar oportunidade.
@@ -123,7 +122,6 @@ class OpportunityController extends Controller
     {
         $organizations = Organization::orderBy('nome')
             ->get();
-
 
         return view(
             'mythra.talent.opportunities.edit',
@@ -134,68 +132,66 @@ class OpportunityController extends Controller
         );
     }
 
-
     /**
      * Atualizar oportunidade.
      */
     public function update(
         Request $request,
         Opportunity $opportunity
-    )
-    {
+    ) {
         $validated = $request->validate([
 
             'organization_id' => [
                 'required',
-                'exists:organizations,id'
+                'exists:organizations,id',
             ],
 
             'titulo' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'descricao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'modelo_trabalho' => [
                 'nullable',
-                'in:presencial,hibrido,remoto'
+                'in:presencial,hibrido,remoto',
             ],
 
             'localizacao' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'nivel' => [
                 'nullable',
-                'in:iniciante,intermediario,avancado,especialista'
+                'in:iniciante,intermediario,avancado,especialista',
             ],
 
             'status' => [
-                'nullable',
-                'in:aberta,pausada,encerrada'
+                'required',
+                'in:aberta,pausada,encerrada',
             ],
 
         ]);
 
-
         $opportunity->update($validated);
 
-
         return redirect()
-            ->route('talent.opportunities.show', $opportunity)
+            ->route(
+                'talent.opportunities.show',
+                $opportunity
+            )
             ->with(
                 'success',
                 'Oportunidade atualizada com sucesso.'
             );
     }
-
 
     /**
      * Remover oportunidade.
@@ -203,7 +199,6 @@ class OpportunityController extends Controller
     public function destroy(Opportunity $opportunity)
     {
         $opportunity->delete();
-
 
         return redirect()
             ->route('talent.opportunities.index')

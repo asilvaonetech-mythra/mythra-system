@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\TalentProfile;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\TalentProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,11 @@ class TalentProfileController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('mythra.talent.profiles.index', compact('profiles'));
+
+        return view(
+            'mythra.talent.profiles.index',
+            compact('profiles')
+        );
     }
 
 
@@ -26,7 +31,9 @@ class TalentProfileController extends Controller
      */
     public function create()
     {
-        return view('mythra.talent.profiles.create');
+        return view(
+            'mythra.talent.profiles.create'
+        );
     }
 
 
@@ -40,40 +47,40 @@ class TalentProfileController extends Controller
             'nome_completo' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'data_nascimento' => [
                 'nullable',
-                'date'
+                'date',
             ],
 
             'telefone' => [
                 'nullable',
                 'string',
-                'max:50'
+                'max:50',
             ],
 
             'localizacao' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'resumo_profissional' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'objetivo_profissional' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'disponibilidade' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
         ]);
@@ -87,20 +94,31 @@ class TalentProfileController extends Controller
 
         return redirect()
             ->route('talent.profiles.index')
-            ->with('success', 'Perfil de talento criado com sucesso.');
+            ->with(
+                'success',
+                'Perfil de talento criado com sucesso.'
+            );
     }
 
 
     /**
      * Exibe um perfil específico.
      */
-    public function show(TalentProfile $talentProfile)
-    {
+    public function show(
+        TalentProfile $talentProfile
+    ) {
         $talentProfile->load([
+
             'user',
+
             'resumes',
+
             'talentSkills.skill',
-            'applications'
+
+            'applications',
+
+            'evolutions',
+
         ]);
 
 
@@ -114,8 +132,9 @@ class TalentProfileController extends Controller
     /**
      * Exibe edição.
      */
-    public function edit(TalentProfile $talentProfile)
-    {
+    public function edit(
+        TalentProfile $talentProfile
+    ) {
         return view(
             'mythra.talent.profiles.edit',
             compact('talentProfile')
@@ -126,47 +145,49 @@ class TalentProfileController extends Controller
     /**
      * Atualiza perfil.
      */
-    public function update(Request $request, TalentProfile $talentProfile)
-    {
+    public function update(
+        Request $request,
+        TalentProfile $talentProfile
+    ) {
         $validated = $request->validate([
 
             'nome_completo' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'data_nascimento' => [
                 'nullable',
-                'date'
+                'date',
             ],
 
             'telefone' => [
                 'nullable',
                 'string',
-                'max:50'
+                'max:50',
             ],
 
             'localizacao' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'resumo_profissional' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'objetivo_profissional' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'disponibilidade' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
         ]);
@@ -176,21 +197,31 @@ class TalentProfileController extends Controller
 
 
         return redirect()
-            ->route('talent.profiles.show', $talentProfile)
-            ->with('success', 'Perfil atualizado com sucesso.');
+            ->route(
+                'talent.profiles.show',
+                $talentProfile
+            )
+            ->with(
+                'success',
+                'Perfil atualizado com sucesso.'
+            );
     }
 
 
     /**
      * Remove perfil.
      */
-    public function destroy(TalentProfile $talentProfile)
-    {
+    public function destroy(
+        TalentProfile $talentProfile
+    ) {
         $talentProfile->delete();
 
 
         return redirect()
             ->route('talent.profiles.index')
-            ->with('success', 'Perfil removido com sucesso.');
+            ->with(
+                'success',
+                'Perfil removido com sucesso.'
+            );
     }
 }

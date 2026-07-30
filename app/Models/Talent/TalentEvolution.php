@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Talent;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,21 +10,30 @@ class TalentEvolution extends Model
 {
     use HasFactory;
 
+    protected $table = 'talent_evolutions';
 
     protected $fillable = [
+
         'talent_profile_id',
+
         'competencia',
+
         'nivel_anterior',
+
         'nivel_atual',
+
         'observacao',
+
     ];
 
-
     /**
-     * Perfil do talento relacionado
+     * Perfil do talento relacionado.
      */
     public function talentProfile(): BelongsTo
     {
-        return $this->belongsTo(TalentProfile::class);
+        return $this->belongsTo(
+            TalentProfile::class,
+            'talent_profile_id'
+        );
     }
 }

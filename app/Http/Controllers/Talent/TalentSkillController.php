@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\TalentSkill;
-use App\Models\TalentProfile;
-use App\Models\Skill;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\TalentSkill;
+use App\Models\Talent\TalentProfile;
+use App\Models\Talent\Skill;
 use Illuminate\Http\Request;
 
 class TalentSkillController extends Controller
@@ -15,8 +16,11 @@ class TalentSkillController extends Controller
     public function index()
     {
         $talentSkills = TalentSkill::with([
+
                 'talentProfile',
-                'skill'
+
+                'skill',
+
             ])
             ->latest()
             ->paginate(20);
@@ -36,6 +40,7 @@ class TalentSkillController extends Controller
     {
         $talents = TalentProfile::orderBy('nome_completo')
             ->get();
+
 
         $skills = Skill::where('status', 'ativo')
             ->orderBy('nome')
@@ -61,22 +66,22 @@ class TalentSkillController extends Controller
 
             'talent_profile_id' => [
                 'required',
-                'exists:talent_profiles,id'
+                'exists:talent_profiles,id',
             ],
 
             'skill_id' => [
                 'required',
-                'exists:skills,id'
+                'exists:skills,id',
             ],
 
             'nivel' => [
                 'required',
-                'in:basico,intermediario,avancado,especialista'
+                'in:basico,intermediario,avancado,especialista',
             ],
 
             'anos_experiencia' => [
                 'nullable',
-                'integer'
+                'integer',
             ],
 
         ]);
@@ -95,23 +100,65 @@ class TalentSkillController extends Controller
 
 
     /**
+     * Visualizar competência.
+     */
+    public function show(
+        TalentSkill $talentSkill
+    ) {
+        $talentSkill->load([
+
+            'talentProfile',
+
+            'skill',
+
+        ]);
+
+
+        return view(
+            'mythra.talent.talent-skills.show',
+            compact('talentSkill')
+        );
+    }
+
+
+    /**
+     * Editar competência.
+     */
+    public function edit(
+        TalentSkill $talentSkill
+    ) {
+        $skills = Skill::where('status', 'ativo')
+            ->orderBy('nome')
+            ->get();
+
+
+        return view(
+            'mythra.talent.talent-skills.edit',
+            compact(
+                'talentSkill',
+                'skills'
+            )
+        );
+    }
+
+
+    /**
      * Atualizar competência.
      */
     public function update(
         Request $request,
         TalentSkill $talentSkill
-    )
-    {
+    ) {
         $validated = $request->validate([
 
             'nivel' => [
                 'required',
-                'in:basico,intermediario,avancado,especialista'
+                'in:basico,intermediario,avancado,especialista',
             ],
 
             'anos_experiencia' => [
                 'nullable',
-                'integer'
+                'integer',
             ],
 
         ]);
@@ -134,8 +181,9 @@ class TalentSkillController extends Controller
     /**
      * Remover competência.
      */
-    public function destroy(TalentSkill $talentSkill)
-    {
+    public function destroy(
+        TalentSkill $talentSkill
+    ) {
         $talentSkill->delete();
 
 

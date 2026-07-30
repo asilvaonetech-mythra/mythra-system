@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\Organization;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,6 @@ class OrganizationController extends Controller
         $organizations = Organization::with('responsibleUser')
             ->latest()
             ->paginate(15);
-
 
         return view(
             'mythra.talent.organizations.index',
@@ -46,36 +46,38 @@ class OrganizationController extends Controller
             'nome' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'documento' => [
                 'nullable',
                 'string',
-                'max:50'
+                'max:50',
             ],
 
             'segmento' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'descricao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'localizacao' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
         ]);
 
 
         $validated['responsavel_user_id'] = Auth::id();
+
+        $validated['status'] = 'ativo';
 
 
         Organization::create($validated);
@@ -95,7 +97,13 @@ class OrganizationController extends Controller
      */
     public function show(Organization $organization)
     {
-        $organization->load('opportunities');
+        $organization->load([
+
+            'responsibleUser',
+
+            'opportunities',
+
+        ]);
 
 
         return view(
@@ -123,37 +131,41 @@ class OrganizationController extends Controller
     public function update(
         Request $request,
         Organization $organization
-    )
-    {
+    ) {
         $validated = $request->validate([
 
             'nome' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'documento' => [
                 'nullable',
                 'string',
-                'max:50'
+                'max:50',
             ],
 
             'segmento' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'descricao' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'localizacao' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
+            ],
+
+            'status' => [
+                'nullable',
+                'in:ativo,inativo',
             ],
 
         ]);
@@ -163,7 +175,10 @@ class OrganizationController extends Controller
 
 
         return redirect()
-            ->route('talent.organizations.show', $organization)
+            ->route(
+                'talent.organizations.show',
+                $organization
+            )
             ->with(
                 'success',
                 'Organização atualizada com sucesso.'

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Talent;
 
-use App\Models\Resume;
-use App\Models\TalentProfile;
+use App\Http\Controllers\Controller;
+use App\Models\Talent\Resume;
+use App\Models\Talent\TalentProfile;
 use Illuminate\Http\Request;
 
 class ResumeController extends Controller
@@ -50,43 +51,43 @@ class ResumeController extends Controller
 
             'talent_profile_id' => [
                 'required',
-                'exists:talent_profiles,id'
+                'exists:talent_profiles,id',
             ],
 
             'titulo' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'resumo' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'experiencias_texto' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'formacao_texto' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'certificacoes_texto' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'projetos_texto' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'principal' => [
                 'nullable',
-                'boolean'
+                'boolean',
             ],
 
         ]);
@@ -124,9 +125,16 @@ class ResumeController extends Controller
      */
     public function edit(Resume $resume)
     {
+        $talents = TalentProfile::orderBy('nome_completo')
+            ->get();
+
+
         return view(
             'mythra.talent.resumes.edit',
-            compact('resume')
+            compact(
+                'resume',
+                'talents'
+            )
         );
     }
 
@@ -137,44 +145,43 @@ class ResumeController extends Controller
     public function update(
         Request $request,
         Resume $resume
-    )
-    {
+    ) {
         $validated = $request->validate([
 
             'titulo' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'resumo' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'experiencias_texto' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'formacao_texto' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'certificacoes_texto' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'projetos_texto' => [
                 'nullable',
-                'string'
+                'string',
             ],
 
             'principal' => [
                 'nullable',
-                'boolean'
+                'boolean',
             ],
 
         ]);

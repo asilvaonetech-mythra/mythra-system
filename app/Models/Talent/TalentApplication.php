@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Talent;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,39 +10,52 @@ class TalentApplication extends Model
 {
     use HasFactory;
 
+    protected $table = 'talent_applications';
 
     protected $fillable = [
+
         'talent_profile_id',
+
         'opportunity_id',
+
         'selection_process_id',
+
         'status',
+
         'observacao',
+
     ];
 
-
     /**
-     * Talento relacionado à conexão
+     * Talento relacionado à conexão.
      */
     public function talentProfile(): BelongsTo
     {
-        return $this->belongsTo(TalentProfile::class);
+        return $this->belongsTo(
+            TalentProfile::class,
+            'talent_profile_id'
+        );
     }
 
-
     /**
-     * Oportunidade relacionada
+     * Oportunidade relacionada.
      */
     public function opportunity(): BelongsTo
     {
-        return $this->belongsTo(Opportunity::class);
+        return $this->belongsTo(
+            Opportunity::class,
+            'opportunity_id'
+        );
     }
 
-
     /**
-     * Processo seletivo relacionado
+     * Processo seletivo relacionado.
      */
     public function selectionProcess(): BelongsTo
     {
-        return $this->belongsTo(SelectionProcess::class);
+        return $this->belongsTo(
+            SelectionProcess::class,
+            'selection_process_id'
+        );
     }
 }

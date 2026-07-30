@@ -7,11 +7,37 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\CoreController;
 
+
+/*
+|--------------------------------------------------------------------------
+| Core Controllers
+|--------------------------------------------------------------------------
+*/
+
 use App\Http\Controllers\Core\UserController;
 use App\Http\Controllers\Core\RoleController;
 use App\Http\Controllers\Core\PermissionController;
 use App\Http\Controllers\Core\UserRoleController;
 use App\Http\Controllers\Core\SettingController;
+
+
+/*
+|--------------------------------------------------------------------------
+| Talent Controllers
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\Talent\TalentController;
+use App\Http\Controllers\Talent\TalentProfileController;
+use App\Http\Controllers\Talent\TalentSkillController;
+use App\Http\Controllers\Talent\TalentEvolutionController;
+use App\Http\Controllers\Talent\TalentApplicationController;
+use App\Http\Controllers\Talent\OpportunityController;
+use App\Http\Controllers\Talent\OrganizationController;
+use App\Http\Controllers\Talent\ResumeController;
+use App\Http\Controllers\Talent\SelectionProcessController;
+use App\Http\Controllers\Talent\SkillController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +51,7 @@ Route::get('/', function () {
 
 });
 
+
 /*
 |--------------------------------------------------------------------------
 | Autenticação Mythra
@@ -37,6 +64,7 @@ Route::get('/login', function () {
 
 })->name('login');
 
+
 Route::post(
     '/login',
     [
@@ -45,11 +73,13 @@ Route::post(
     ]
 );
 
+
 Route::get('/register', function () {
 
     return view('auth.register');
 
 })->name('register');
+
 
 Route::post(
     '/register',
@@ -59,6 +89,7 @@ Route::post(
     ]
 );
 
+
 Route::post(
     '/logout',
     [
@@ -67,6 +98,8 @@ Route::post(
     ]
 );
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Portal Mythra
@@ -74,6 +107,7 @@ Route::post(
 */
 
 Route::middleware('auth')->group(function () {
+
 
     /*
     |--------------------------------------------------------------------------
@@ -89,6 +123,8 @@ Route::middleware('auth')->group(function () {
         ]
     )->name('portal.state');
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Entrada Portal
@@ -102,6 +138,8 @@ Route::middleware('auth')->group(function () {
             'index'
         ]
     )->name('portal');
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -117,6 +155,7 @@ Route::middleware('auth')->group(function () {
         ]
     )->name('core.index');
 
+
     Route::get(
         '/portal/core/{section}',
         [
@@ -124,6 +163,8 @@ Route::middleware('auth')->group(function () {
             'show'
         ]
     )->name('core.section');
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -139,6 +180,7 @@ Route::middleware('auth')->group(function () {
         ]
     )->name('modules.index');
 
+
     Route::get(
         '/portal/module/search',
         [
@@ -146,6 +188,7 @@ Route::middleware('auth')->group(function () {
             'search'
         ]
     )->name('modules.search');
+
 
     Route::get(
         '/portal/module/api',
@@ -155,6 +198,7 @@ Route::middleware('auth')->group(function () {
         ]
     )->name('modules.api');
 
+
     Route::get(
         '/portal/{module}',
         [
@@ -162,6 +206,164 @@ Route::middleware('auth')->group(function () {
             'show'
         ]
     )->name('modules.show');
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | MYTHRA TALENT
+    |--------------------------------------------------------------------------
+    */
+
+    Route::prefix('talent')
+        ->name('talent.')
+        ->group(function () {
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Entrada Talent
+            |--------------------------------------------------------------------------
+            */
+
+            Route::get(
+                '/',
+                [
+                    TalentController::class,
+                    'index'
+                ]
+            )->name('index');
+
+
+            Route::get(
+                '/search',
+                [
+                    TalentController::class,
+                    'search'
+                ]
+            )->name('search');
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Perfis de Talentos
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'profiles',
+                TalentProfileController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Competências
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'skills',
+                SkillController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Competências dos Talentos
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'talent-skills',
+                TalentSkillController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Evolução dos Talentos
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'evolutions',
+                TalentEvolutionController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Organizações
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'organizations',
+                OrganizationController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Oportunidades
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'opportunities',
+                OpportunityController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Processos Seletivos
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'selection',
+                SelectionProcessController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Currículos
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'resumes',
+                ResumeController::class
+            );
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Conexões Talento x Oportunidade
+            |--------------------------------------------------------------------------
+            */
+
+            Route::resource(
+                'applications',
+                TalentApplicationController::class
+            );
+
+
+        });
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -172,6 +374,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('core')
         ->name('core.')
         ->group(function () {
+
 
             /*
             |--------------------------------------------------------------------------
@@ -189,6 +392,8 @@ Route::middleware('auth')->group(function () {
 
                 });
 
+
+
             /*
             |--------------------------------------------------------------------------
             | Roles
@@ -204,6 +409,8 @@ Route::middleware('auth')->group(function () {
                     );
 
                 });
+
+
 
             /*
             |--------------------------------------------------------------------------
@@ -221,6 +428,8 @@ Route::middleware('auth')->group(function () {
 
                 });
 
+
+
             /*
             |--------------------------------------------------------------------------
             | Usuários x Roles
@@ -230,6 +439,7 @@ Route::middleware('auth')->group(function () {
             Route::middleware('permission:users.roles')
                 ->group(function () {
 
+
                     Route::get(
                         'user-roles',
                         [
@@ -237,6 +447,7 @@ Route::middleware('auth')->group(function () {
                             'index'
                         ]
                     )->name('user-roles.index');
+
 
                     Route::get(
                         'user-roles/{user}/edit',
@@ -246,6 +457,7 @@ Route::middleware('auth')->group(function () {
                         ]
                     )->name('user-roles.edit');
 
+
                     Route::put(
                         'user-roles/{user}',
                         [
@@ -253,6 +465,7 @@ Route::middleware('auth')->group(function () {
                             'update'
                         ]
                     )->name('user-roles.update');
+
 
                     Route::post(
                         'user-roles/{user}/attach',
@@ -262,6 +475,7 @@ Route::middleware('auth')->group(function () {
                         ]
                     )->name('user-roles.attach');
 
+
                     Route::delete(
                         'user-roles/{user}/{role}',
                         [
@@ -270,7 +484,10 @@ Route::middleware('auth')->group(function () {
                         ]
                     )->name('user-roles.detach');
 
+
                 });
+
+
 
             /*
             |--------------------------------------------------------------------------
@@ -288,6 +505,8 @@ Route::middleware('auth')->group(function () {
 
                 });
 
+
         });
+
 
 });

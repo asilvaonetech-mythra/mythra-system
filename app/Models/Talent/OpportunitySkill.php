@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Talent;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,28 +10,37 @@ class OpportunitySkill extends Model
 {
     use HasFactory;
 
+    protected $table = 'opportunity_skills';
 
     protected $fillable = [
+
         'opportunity_id',
+
         'skill_id',
+
         'nivel_desejado',
+
     ];
 
-
     /**
-     * Oportunidade relacionada
+     * Oportunidade relacionada.
      */
     public function opportunity(): BelongsTo
     {
-        return $this->belongsTo(Opportunity::class);
+        return $this->belongsTo(
+            Opportunity::class,
+            'opportunity_id'
+        );
     }
 
-
     /**
-     * Competência desejada
+     * Competência desejada.
      */
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class);
+        return $this->belongsTo(
+            Skill::class,
+            'skill_id'
+        );
     }
 }
