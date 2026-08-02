@@ -41,6 +41,19 @@ use App\Http\Controllers\Talent\SkillController;
 
 /*
 |--------------------------------------------------------------------------
+| Business Controllers
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\Business\UnitController;
+use App\Http\Controllers\Business\CustomerController;
+use App\Http\Controllers\Business\SupplierController;
+use App\Http\Controllers\Business\ProductController;
+use App\Http\Controllers\Business\ServiceController;
+
+
+/*
+|--------------------------------------------------------------------------
 | Página Inicial
 |--------------------------------------------------------------------------
 */
@@ -220,12 +233,6 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | Entrada Talent
-            |--------------------------------------------------------------------------
-            */
-
             Route::get(
                 '/',
                 [
@@ -244,25 +251,11 @@ Route::middleware('auth')->group(function () {
             )->name('search');
 
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Perfis de Talentos
-            |--------------------------------------------------------------------------
-            */
-
             Route::resource(
                 'profiles',
                 TalentProfileController::class
             );
 
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Competências
-            |--------------------------------------------------------------------------
-            */
 
             Route::resource(
                 'skills',
@@ -270,25 +263,11 @@ Route::middleware('auth')->group(function () {
             );
 
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Competências dos Talentos
-            |--------------------------------------------------------------------------
-            */
-
             Route::resource(
                 'talent-skills',
                 TalentSkillController::class
             );
 
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Evolução dos Talentos
-            |--------------------------------------------------------------------------
-            */
 
             Route::resource(
                 'evolutions',
@@ -296,25 +275,11 @@ Route::middleware('auth')->group(function () {
             );
 
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Organizações
-            |--------------------------------------------------------------------------
-            */
-
             Route::resource(
                 'organizations',
                 OrganizationController::class
             );
 
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Oportunidades
-            |--------------------------------------------------------------------------
-            */
 
             Route::resource(
                 'opportunities',
@@ -322,38 +287,17 @@ Route::middleware('auth')->group(function () {
             );
 
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Processos Seletivos
-            |--------------------------------------------------------------------------
-            */
-
             Route::resource(
                 'selection',
                 SelectionProcessController::class
             );
 
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Currículos
-            |--------------------------------------------------------------------------
-            */
-
             Route::resource(
                 'resumes',
                 ResumeController::class
             );
 
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Conexões Talento x Oportunidade
-            |--------------------------------------------------------------------------
-            */
 
             Route::resource(
                 'applications',
@@ -363,150 +307,226 @@ Route::middleware('auth')->group(function () {
 
         });
 
+       
+/*
+|--------------------------------------------------------------------------
+| MYTHRA BUSINESS
+|--------------------------------------------------------------------------
+*/
 
+Route::prefix('business')
+    ->name('business.')
+    ->group(function () {
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Unidades Organizacionais
+        |--------------------------------------------------------------------------
+        */
+
+        Route::resource(
+            'units',
+            UnitController::class
+        );
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Clientes
+        |--------------------------------------------------------------------------
+        */
+
+        Route::resource(
+            'customers',
+            CustomerController::class
+        );
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Fornecedores
+        |--------------------------------------------------------------------------
+        */
+
+        Route::resource(
+            'suppliers',
+            SupplierController::class
+        );
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Produtos
+        |--------------------------------------------------------------------------
+        */
+
+        Route::resource(
+            'products',
+            ProductController::class
+        );
+
+
+    });
 
     /*
-    |--------------------------------------------------------------------------
-    | CORE RBAC
-    |--------------------------------------------------------------------------
-    */
+|--------------------------------------------------------------------------
+| Serviços
+|--------------------------------------------------------------------------
+*/
 
-    Route::prefix('core')
-        ->name('core.')
-        ->group(function () {
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Usuários
-            |--------------------------------------------------------------------------
-            */
-
-            Route::middleware('permission:users.manage')
-                ->group(function () {
-
-                    Route::resource(
-                        'users',
-                        UserController::class
-                    );
-
-                });
+Route::resource(
+    'services',
+    ServiceController::class
+);
 
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | Roles
-            |--------------------------------------------------------------------------
-            */
+/*
+|--------------------------------------------------------------------------
+| CORE RBAC
+|--------------------------------------------------------------------------
+*/
 
-            Route::middleware('permission:roles.manage')
-                ->group(function () {
-
-                    Route::resource(
-                        'roles',
-                        RoleController::class
-                    );
-
-                });
+Route::prefix('core')
+    ->name('core.')
+    ->group(function () {
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Usuários
+        |--------------------------------------------------------------------------
+        */
 
-            /*
-            |--------------------------------------------------------------------------
-            | Permissions
-            |--------------------------------------------------------------------------
-            */
+        Route::middleware('permission:users.manage')
+            ->group(function () {
 
-            Route::middleware('permission:permissions.manage')
-                ->group(function () {
+                Route::resource(
+                    'users',
+                    UserController::class
+                );
 
-                    Route::resource(
-                        'permissions',
-                        PermissionController::class
-                    );
-
-                });
+            });
 
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | Usuários x Roles
-            |--------------------------------------------------------------------------
-            */
+        /*
+        |--------------------------------------------------------------------------
+        | Roles
+        |--------------------------------------------------------------------------
+        */
 
-            Route::middleware('permission:users.roles')
-                ->group(function () {
+        Route::middleware('permission:roles.manage')
+            ->group(function () {
 
+                Route::resource(
+                    'roles',
+                    RoleController::class
+                );
 
-                    Route::get(
-                        'user-roles',
-                        [
-                            UserRoleController::class,
-                            'index'
-                        ]
-                    )->name('user-roles.index');
-
-
-                    Route::get(
-                        'user-roles/{user}/edit',
-                        [
-                            UserRoleController::class,
-                            'edit'
-                        ]
-                    )->name('user-roles.edit');
-
-
-                    Route::put(
-                        'user-roles/{user}',
-                        [
-                            UserRoleController::class,
-                            'update'
-                        ]
-                    )->name('user-roles.update');
-
-
-                    Route::post(
-                        'user-roles/{user}/attach',
-                        [
-                            UserRoleController::class,
-                            'attach'
-                        ]
-                    )->name('user-roles.attach');
-
-
-                    Route::delete(
-                        'user-roles/{user}/{role}',
-                        [
-                            UserRoleController::class,
-                            'detach'
-                        ]
-                    )->name('user-roles.detach');
-
-
-                });
+            });
 
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | Configurações Globais
-            |--------------------------------------------------------------------------
-            */
+        /*
+        |--------------------------------------------------------------------------
+        | Permissions
+        |--------------------------------------------------------------------------
+        */
 
-            Route::middleware('permission:core.settings')
-                ->group(function () {
+        Route::middleware('permission:permissions.manage')
+            ->group(function () {
 
-                    Route::resource(
-                        'settings',
-                        SettingController::class
-                    );
+                Route::resource(
+                    'permissions',
+                    PermissionController::class
+                );
 
-                });
-
-
-        });
+            });
 
 
-});
+
+        /*
+        |--------------------------------------------------------------------------
+        | Usuários x Roles
+        |--------------------------------------------------------------------------
+        */
+
+        Route::middleware('permission:users.roles')
+            ->group(function () {
+
+
+                Route::get(
+                    'user-roles',
+                    [
+                        UserRoleController::class,
+                        'index'
+                    ]
+                )->name('user-roles.index');
+
+
+                Route::get(
+                    'user-roles/{user}/edit',
+                    [
+                        UserRoleController::class,
+                        'edit'
+                    ]
+                )->name('user-roles.edit');
+
+
+                Route::put(
+                    'user-roles/{user}',
+                    [
+                        UserRoleController::class,
+                        'update'
+                    ]
+                )->name('user-roles.update');
+
+
+                Route::post(
+                    'user-roles/{user}/attach',
+                    [
+                        UserRoleController::class,
+                        'attach'
+                    ]
+                )->name('user-roles.attach');
+
+
+                Route::delete(
+                    'user-roles/{user}/{role}',
+                    [
+                        UserRoleController::class,
+                        'detach'
+                    ]
+                )->name('user-roles.detach');
+
+
+            });
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Configurações Globais
+        |--------------------------------------------------------------------------
+        */
+
+        Route::middleware('permission:core.settings')
+            ->group(function () {
+
+                Route::resource(
+                    'settings',
+                    SettingController::class
+                );
+
+            });
+
+
+    });
+
+
+}); 
