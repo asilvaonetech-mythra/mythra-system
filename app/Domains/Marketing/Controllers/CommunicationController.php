@@ -22,7 +22,7 @@ class CommunicationController extends Controller
 
     public function create(): View
     {
-        return view('marketing.communications.create');
+        return view('mythra.marketing.communications.create');
     }
 
     public function store(

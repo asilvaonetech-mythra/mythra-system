@@ -22,7 +22,7 @@ class AutomationController extends Controller
 
     public function create(): View
     {
-        return view('marketing.automations.create');
+        return view('mythra.marketing.automations.create');
     }
 
     public function store(

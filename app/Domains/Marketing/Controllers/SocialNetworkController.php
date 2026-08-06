@@ -14,12 +14,12 @@ class SocialNetworkController extends Controller
     {
         $socialNetworks = SocialNetwork::paginate(15);
 
-        return view('marketing.social-networks.index', compact('socialNetworks'));
+        return view('mythra.marketing.social-networks.index', compact('socialNetworks'));
     }
 
     public function create(): View
     {
-        return view('marketing.social-networks.create');
+        return view('mythra.marketing.social-networks.create');
     }
 
     public function store(SocialNetworkRequest $request): RedirectResponse
@@ -32,12 +32,12 @@ class SocialNetworkController extends Controller
 
     public function show(SocialNetwork $socialNetwork): View
     {
-        return view('marketing.social-networks.show', compact('socialNetwork'));
+        return view('mythra.marketing.social-networks.show', compact('socialNetwork'));
     }
 
     public function edit(SocialNetwork $socialNetwork): View
     {
-        return view('marketing.social-networks.edit', compact('socialNetwork'));
+        return view('mythra.marketing.social-networks.edit', compact('socialNetwork'));
     }
 
     public function update(

@@ -14,12 +14,12 @@ class EditorialCalendarController extends Controller
     {
         $calendars = EditorialCalendar::latest()->paginate(15);
 
-        return view('marketing.editorial-calendars.index', compact('calendars'));
+        return view('mythra.marketing.editorial-calendars.index', compact('calendars'));
     }
 
     public function create(): View
     {
-        return view('marketing.editorial-calendars.create');
+        return view('mythra.marketing.editorial-calendars.create');
     }
 
     public function store(EditorialCalendarRequest $request): RedirectResponse

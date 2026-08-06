@@ -12,11 +12,11 @@ class MetricController extends Controller
     {
         $metrics = Metric::latest()->paginate(20);
 
-        return view('marketing.metrics.index', compact('metrics'));
+        return view('mythra.marketing.metrics.index', compact('metrics'));
     }
 
     public function show(Metric $metric): View
     {
-        return view('marketing.metrics.show', compact('metric'));
+        return view('mythra.marketing.metrics.show', compact('metric'));
     }
 }

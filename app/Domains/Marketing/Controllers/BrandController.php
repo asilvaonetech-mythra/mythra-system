@@ -14,12 +14,12 @@ class BrandController extends Controller
     {
         $brands = Brand::latest()->paginate(15);
 
-        return view('marketing.brands.index', compact('brands'));
+        return view('mythra.marketing.brands.index', compact('brands'));
     }
 
     public function create(): View
     {
-        return view('marketing.brands.create');
+        return view('mythra.marketing.brands.create');
     }
 
     public function store(BrandRequest $request): RedirectResponse
@@ -33,12 +33,12 @@ class BrandController extends Controller
 
     public function show(Brand $brand): View
     {
-        return view('marketing.brands.show', compact('brand'));
+        return view('mythra.marketing.brands.show', compact('brand'));
     }
 
     public function edit(Brand $brand): View
     {
-        return view('marketing.brands.edit', compact('brand'));
+        return view('mythra.marketing.brands.edit', compact('brand'));
     }
 
     public function update(

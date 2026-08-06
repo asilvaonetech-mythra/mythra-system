@@ -14,12 +14,12 @@ class CampaignController extends Controller
     {
         $campaigns = Campaign::latest()->paginate(15);
 
-        return view('marketing.campaigns.index', compact('campaigns'));
+        return view('mythra.marketing.campaigns.index', compact('campaigns'));
     }
 
     public function create(): View
     {
-        return view('marketing.campaigns.create');
+        return view('mythra.marketing.campaigns.create');
     }
 
     public function store(CampaignRequest $request): RedirectResponse
@@ -33,12 +33,12 @@ class CampaignController extends Controller
 
     public function show(Campaign $campaign): View
     {
-        return view('marketing.campaigns.show', compact('campaign'));
+        return view('mythra.marketing.campaigns.show', compact('campaign'));
     }
 
     public function edit(Campaign $campaign): View
     {
-        return view('marketing.campaigns.edit', compact('campaign'));
+        return view('mythra.marketing.campaigns.edit', compact('campaign'));
     }
 
     public function update(

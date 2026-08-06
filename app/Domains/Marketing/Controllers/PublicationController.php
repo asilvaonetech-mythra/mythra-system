@@ -14,12 +14,12 @@ class PublicationController extends Controller
     {
         $publications = Publication::latest()->paginate(15);
 
-        return view('marketing.publications.index', compact('publications'));
+        return view('mythra.marketing.publications.index', compact('publications'));
     }
 
     public function create(): View
     {
-        return view('marketing.publications.create');
+        return view('mythra.marketing.publications.create');
     }
 
     public function store(
@@ -34,13 +34,13 @@ class PublicationController extends Controller
     public function show(
         Publication $publication
     ): View {
-        return view('marketing.publications.show', compact('publication'));
+        return view('mythra.marketing.publications.show', compact('publication'));
     }
 
     public function edit(
         Publication $publication
     ): View {
-        return view('marketing.publications.edit', compact('publication'));
+        return view('mythra.marketing.publications.edit', compact('publication'));
     }
 
     public function update(

@@ -14,12 +14,12 @@ class ContentController extends Controller
     {
         $contents = Content::latest()->paginate(15);
 
-        return view('marketing.contents.index', compact('contents'));
+        return view('mythra.marketing.contents.index', compact('contents'));
     }
 
     public function create(): View
     {
-        return view('marketing.contents.create');
+        return view('mythra.marketing.contents.create');
     }
 
     public function store(ContentRequest $request): RedirectResponse
@@ -33,12 +33,12 @@ class ContentController extends Controller
 
     public function show(Content $content): View
     {
-        return view('marketing.contents.show', compact('content'));
+        return view('mythra.marketing.contents.show', compact('content'));
     }
 
     public function edit(Content $content): View
     {
-        return view('marketing.contents.edit', compact('content'));
+        return view('mythra.marketing.contents.edit', compact('content'));
     }
 
     public function update(
