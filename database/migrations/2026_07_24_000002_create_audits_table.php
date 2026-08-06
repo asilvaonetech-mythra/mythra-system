@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Criação da tabela de auditoria do Mythra Core.
      */
     public function up(): void
     {
@@ -28,22 +28,31 @@ return new class extends Migration
 
             /*
             |--------------------------------------------------------------------------
-            | Identificação da ação
+            | Domínio e ação executada
             |--------------------------------------------------------------------------
             */
 
-            $table->string('event', 50);
-
-            $table->string('auditable_type', 150);
-
-            $table->unsignedBigInteger('auditable_id')
+            $table->string('module', 100)
                 ->nullable();
 
+            $table->string('action', 100);
 
 
             /*
             |--------------------------------------------------------------------------
-            | Dados alterados
+            | Modelo afetado
+            |--------------------------------------------------------------------------
+            */
+
+            $table->string('model', 150);
+
+            $table->unsignedBigInteger('model_id')
+                ->nullable();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Estado anterior e novo estado
             |--------------------------------------------------------------------------
             */
 
@@ -54,24 +63,9 @@ return new class extends Migration
                 ->nullable();
 
 
-
             /*
             |--------------------------------------------------------------------------
-            | Contexto
-            |--------------------------------------------------------------------------
-            */
-
-            $table->string('module', 100)
-                ->nullable();
-
-            $table->string('description', 255)
-                ->nullable();
-
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Segurança
+            | Segurança e contexto
             |--------------------------------------------------------------------------
             */
 
@@ -80,7 +74,6 @@ return new class extends Migration
 
             $table->text('user_agent')
                 ->nullable();
-
 
 
             /*
@@ -103,13 +96,13 @@ return new class extends Migration
 
             $table->index('user_id');
 
-            $table->index('event');
-
-            $table->index('auditable_type');
-
-            $table->index('auditable_id');
-
             $table->index('module');
+
+            $table->index('action');
+
+            $table->index('model');
+
+            $table->index('model_id');
 
             $table->index('created_at');
 
@@ -118,7 +111,7 @@ return new class extends Migration
 
 
     /**
-     * Reverse the migrations.
+     * Remoção da tabela.
      */
     public function down(): void
     {

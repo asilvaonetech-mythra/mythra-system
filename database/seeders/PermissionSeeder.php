@@ -3,68 +3,75 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
     /**
-     * Permissões gerais do Core Mythra.
+     * Permissões principais do Core Mythra.
      */
     public function run(): void
     {
         $permissions = [
 
-            /*
-            |--------------------------------------------------------------------------
-            | Core
-            |--------------------------------------------------------------------------
-            */
+            [
+                'name' => 'core.access',
+                'slug' => 'core.access',
+                'module' => 'core',
+                'display_name' => 'Acessar Core',
+                'description' => 'Permite acesso ao núcleo do ecossistema Mythra.',
+            ],
 
-            'core.access',
+            [
+                'name' => 'core.manage_users',
+                'slug' => 'core.manage_users',
+                'module' => 'core',
+                'display_name' => 'Gerenciar usuários',
+                'description' => 'Permite administrar usuários do ecossistema.',
+            ],
 
-            'core.settings',
+            [
+                'name' => 'core.manage_roles',
+                'slug' => 'core.manage_roles',
+                'module' => 'core',
+                'display_name' => 'Gerenciar papéis',
+                'description' => 'Permite administrar papéis de acesso.',
+            ],
 
-            'core.audit',
-
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Portal
-            |--------------------------------------------------------------------------
-            */
-
-            'portal.access',
-
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Usuários
-            |--------------------------------------------------------------------------
-            */
-
-            'users.view',
-
-            'users.create',
-
-            'users.update',
-
-            'users.delete',
-
+            [
+                'name' => 'core.manage_permissions',
+                'slug' => 'core.manage_permissions',
+                'module' => 'core',
+                'display_name' => 'Gerenciar permissões',
+                'description' => 'Permite administrar permissões do sistema.',
+            ],
 
         ];
 
 
         foreach ($permissions as $permission) {
 
-            Permission::firstOrCreate([
+            Permission::firstOrCreate(
 
-                'name' => $permission,
+                [
+                    'name' => $permission['name'],
+                ],
 
-                'guard_name' => 'web',
+                [
+                    'slug' => $permission['slug'],
 
-            ]);
+                    'module' => $permission['module'],
+
+                    'display_name' => $permission['display_name'],
+
+                    'description' => $permission['description'],
+
+                    'is_system' => true,
+
+                    'is_active' => true,
+                ]
+
+            );
 
         }
     }

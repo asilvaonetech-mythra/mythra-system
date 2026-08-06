@@ -4,42 +4,36 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-
 class DatabaseSeeder extends Seeder
 {
-
     /**
      * Executa os seeders principais.
      */
     public function run(): void
     {
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Core Mythra
-        |--------------------------------------------------------------------------
-        */
-
-
         $this->call([
 
-
-            PermissionSeeder::class,
-
+            /*
+            |--------------------------------------------------------------------------
+            | Core Mythra
+            |--------------------------------------------------------------------------
+            */
 
             RoleSeeder::class,
 
-
-            UserSeeder::class,
-
+            PermissionSeeder::class,
 
             SettingSeeder::class,
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Domínios Mythra
+            |--------------------------------------------------------------------------
+            */
+
+            MarketingPermissionSeeder::class,
+
         ]);
-
-
     }
-
 }

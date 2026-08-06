@@ -13,9 +13,15 @@ return Application::configure(
 
 ->withRouting(
 
-    web: __DIR__.'/../routes/web.php',
+    web: [
 
-    commands: __DIR__.'/../routes/console.php',
+        __DIR__ . '/../routes/web.php',
+
+        __DIR__ . '/../routes/marketing.php',
+
+    ],
+
+    commands: __DIR__ . '/../routes/console.php',
 
     health: '/up',
 
@@ -23,22 +29,19 @@ return Application::configure(
 
 ->withMiddleware(function (Middleware $middleware) {
 
-
     /*
     |--------------------------------------------------------------------------
-    | Middlewares Globais
+    | Middlewares
     |--------------------------------------------------------------------------
     */
-
 
     $middleware->alias([
 
         'permission' => PermissionMiddleware::class,
 
-        'role' => RoleMiddleware::class,
+        'role'       => RoleMiddleware::class,
 
     ]);
-
 
 })
 
