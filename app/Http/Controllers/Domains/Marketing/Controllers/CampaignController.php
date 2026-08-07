@@ -1,65 +1,118 @@
 <?php
 
-namespace App\Http\Controllers\Domains\Marketing\Controllers;
+namespace App\Domains\Marketing\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Domains\Marketing\Models\Campaign;
+use App\Domains\Marketing\Requests\CampaignRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class CampaignController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): View
     {
-        //
+        $campaigns = Campaign::latest()->paginate(15);
+
+        return view(
+            'mythra.marketing.campaigns.index',
+            compact('campaigns')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function create(): View
     {
-        //
+        return view(
+            'mythra.marketing.campaigns.create'
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+
+    public function store(
+        CampaignRequest $request
+    ): RedirectResponse {
+
+        $data = $request->validated();
+
+
+        $data['slug'] = Str::slug(
+            $data['name']
+        );
+
+
+        Campaign::create($data);
+
+
+        return redirect()
+            ->route('marketing.campaigns.index')
+            ->with(
+                'success',
+                'Campanha criada com sucesso.'
+            );
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+
+    public function show(
+        Campaign $campaign
+    ): View {
+
+        return view(
+            'mythra.marketing.campaigns.show',
+            compact('campaign')
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+
+    public function edit(
+        Campaign $campaign
+    ): View {
+
+        return view(
+            'mythra.marketing.campaigns.edit',
+            compact('campaign')
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+
+    public function update(
+        CampaignRequest $request,
+        Campaign $campaign
+    ): RedirectResponse {
+
+        $data = $request->validated();
+
+
+        $data['slug'] = Str::slug(
+            $data['name']
+        );
+
+
+        $campaign->update($data);
+
+
+        return redirect()
+            ->route('marketing.campaigns.index')
+            ->with(
+                'success',
+                'Campanha atualizada com sucesso.'
+            );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+
+    public function destroy(
+        Campaign $campaign
+    ): RedirectResponse {
+
+        $campaign->delete();
+
+
+        return redirect()
+            ->route('marketing.campaigns.index')
+            ->with(
+                'success',
+                'Campanha removida com sucesso.'
+            );
     }
 }

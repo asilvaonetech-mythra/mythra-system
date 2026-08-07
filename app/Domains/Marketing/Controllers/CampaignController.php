@@ -7,6 +7,7 @@ use App\Domains\Marketing\Models\Campaign;
 use App\Domains\Marketing\Requests\CampaignRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class CampaignController extends Controller
 {
@@ -14,50 +15,104 @@ class CampaignController extends Controller
     {
         $campaigns = Campaign::latest()->paginate(15);
 
-        return view('mythra.marketing.campaigns.index', compact('campaigns'));
+        return view(
+            'mythra.marketing.campaigns.index',
+            compact('campaigns')
+        );
     }
+
 
     public function create(): View
     {
-        return view('mythra.marketing.campaigns.create');
+        return view(
+            'mythra.marketing.campaigns.create'
+        );
     }
 
-    public function store(CampaignRequest $request): RedirectResponse
-    {
-        Campaign::create($request->validated());
+
+    public function store(
+        CampaignRequest $request
+    ): RedirectResponse {
+
+        $data = $request->validated();
+
+
+        $data['slug'] = Str::slug(
+            $data['name']
+        );
+
+
+        Campaign::create($data);
+
 
         return redirect()
             ->route('marketing.campaigns.index')
-            ->with('success', 'Campanha criada com sucesso.');
+            ->with(
+                'success',
+                'Campanha criada com sucesso.'
+            );
     }
 
-    public function show(Campaign $campaign): View
-    {
-        return view('mythra.marketing.campaigns.show', compact('campaign'));
+
+    public function show(
+        Campaign $campaign
+    ): View {
+
+        return view(
+            'mythra.marketing.campaigns.show',
+            compact('campaign')
+        );
     }
 
-    public function edit(Campaign $campaign): View
-    {
-        return view('mythra.marketing.campaigns.edit', compact('campaign'));
+
+    public function edit(
+        Campaign $campaign
+    ): View {
+
+        return view(
+            'mythra.marketing.campaigns.edit',
+            compact('campaign')
+        );
     }
+
 
     public function update(
         CampaignRequest $request,
         Campaign $campaign
     ): RedirectResponse {
-        $campaign->update($request->validated());
+
+        $data = $request->validated();
+
+
+        $data['slug'] = Str::slug(
+            $data['name']
+        );
+
+
+        $campaign->update($data);
+
 
         return redirect()
             ->route('marketing.campaigns.index')
-            ->with('success', 'Campanha atualizada com sucesso.');
+            ->with(
+                'success',
+                'Campanha atualizada com sucesso.'
+            );
     }
 
-    public function destroy(Campaign $campaign): RedirectResponse
-    {
+
+    public function destroy(
+        Campaign $campaign
+    ): RedirectResponse {
+
         $campaign->delete();
+
 
         return redirect()
             ->route('marketing.campaigns.index')
-            ->with('success', 'Campanha removida com sucesso.');
+            ->with(
+                'success',
+                'Campanha removida com sucesso.'
+            );
     }
 }

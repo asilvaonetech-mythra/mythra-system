@@ -60,12 +60,11 @@ class SocialNetworkController extends Controller
     }
 
     public function toggle(
-        SocialNetwork $social_Network
-    ): RedirectResponse {
-        $social_Network->update([
-            'is_active' => ! $social_Network->is_active,
-        ]);
+    SocialNetwork $socialNetwork
+): RedirectResponse {
+    $socialNetwork->update([
+        'is_active' => ! $socialNetwork->is_active,
+    ]);
 
-        return back();
-    }
+    return back();
 }

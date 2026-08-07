@@ -12,6 +12,7 @@ use App\Domains\Marketing\Controllers\CommunicationController;
 use App\Domains\Marketing\Controllers\MetricController;
 use App\Domains\Marketing\Controllers\AutomationController;
 
+
 Route::middleware([
     'auth',
 ])
@@ -19,16 +20,18 @@ Route::middleware([
 ->name('marketing.')
 ->group(function () {
 
+
     /*
     |--------------------------------------------------------------------------
     | Campaigns
     |--------------------------------------------------------------------------
     */
 
-    Route::apiResource(
+    Route::resource(
         'campaigns',
         CampaignController::class
     );
+
 
 
     /*
@@ -42,10 +45,12 @@ Route::middleware([
         SocialNetworkController::class
     );
 
+
     Route::patch(
         'social-networks/{social_network}/toggle',
         [SocialNetworkController::class, 'toggle']
     )->name('social-networks.toggle');
+
 
 
     /*
@@ -54,15 +59,17 @@ Route::middleware([
     |--------------------------------------------------------------------------
     */
 
-    Route::apiResource(
-        'publications',
-        PublicationController::class
-    );
+    Route::resource(
+    'publications',
+    PublicationController::class
+);
+
 
     Route::patch(
         'publications/{publication}/publish',
         [PublicationController::class, 'publish']
     )->name('publications.publish');
+
 
 
     /*
@@ -71,15 +78,17 @@ Route::middleware([
     |--------------------------------------------------------------------------
     */
 
-    Route::apiResource(
-        'contents',
-        ContentController::class
-    );
+    Route::resource(
+    'contents',
+    ContentController::class
+);
+
 
     Route::patch(
         'contents/{content}/publish',
         [ContentController::class, 'publish']
     )->name('contents.publish');
+
 
 
     /*
@@ -93,15 +102,18 @@ Route::middleware([
         [AssetController::class, 'store']
     )->name('assets.store');
 
+
     Route::put(
         'assets/{asset}',
         [AssetController::class, 'update']
     )->name('assets.update');
 
+
     Route::delete(
         'assets/{asset}',
         [AssetController::class, 'destroy']
     )->name('assets.destroy');
+
 
 
     /*
@@ -115,10 +127,12 @@ Route::middleware([
         BrandController::class
     );
 
+
     Route::patch(
         'brands/{brand}/toggle',
         [BrandController::class, 'toggle']
     )->name('brands.toggle');
+
 
 
     /*
@@ -132,10 +146,12 @@ Route::middleware([
         CommunicationController::class
     );
 
+
     Route::patch(
         'communications/{communication}/send',
         [CommunicationController::class, 'send']
     )->name('communications.send');
+
 
 
     /*
@@ -150,6 +166,7 @@ Route::middleware([
     );
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Automations
@@ -161,14 +178,17 @@ Route::middleware([
         AutomationController::class
     );
 
+
     Route::patch(
         'automations/{automation}/execute',
         [AutomationController::class, 'execute']
     )->name('automations.execute');
 
+
     Route::patch(
         'automations/{automation}/toggle',
         [AutomationController::class, 'toggle']
     )->name('automations.toggle');
+
 
 });
