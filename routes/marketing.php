@@ -91,28 +91,52 @@ Route::middleware([
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Assets
-    |--------------------------------------------------------------------------
-    */
+/*
+|--------------------------------------------------------------------------
+| Assets
+|--------------------------------------------------------------------------
+*/
 
-    Route::post(
-        'assets/{type}',
-        [AssetController::class, 'store']
-    )->name('assets.store');
-
-
-    Route::put(
-        'assets/{asset}',
-        [AssetController::class, 'update']
-    )->name('assets.update');
+Route::get(
+    'assets',
+    [AssetController::class, 'index']
+)->name('assets.index');
 
 
-    Route::delete(
-        'assets/{asset}',
-        [AssetController::class, 'destroy']
-    )->name('assets.destroy');
+Route::get(
+    'assets/create',
+    [AssetController::class, 'create']
+)->name('assets.create');
+
+
+Route::post(
+    'assets/{type}',
+    [AssetController::class, 'store']
+)->name('assets.store');
+
+
+Route::get(
+    'assets/{type}/{id}',
+    [AssetController::class, 'show']
+)->name('assets.show');
+
+
+Route::get(
+    'assets/{type}/{id}/edit',
+    [AssetController::class, 'edit']
+)->name('assets.edit');
+
+
+Route::put(
+    'assets/{type}/{id}',
+    [AssetController::class, 'update']
+)->name('assets.update');
+
+
+Route::delete(
+    'assets/{type}/{id}',
+    [AssetController::class, 'destroy']
+)->name('assets.destroy');
 
 
 

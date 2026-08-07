@@ -2,51 +2,31 @@
 
 namespace App\Domains\Marketing\Services;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Domains\Marketing\Models\ImageAsset;
+use App\Domains\Marketing\Models\VideoAsset;
+use App\Domains\Marketing\Models\AudioAsset;
 
 class AssetService
 {
     /**
-     * Cria um asset.
+     * Cria um asset conforme o tipo informado.
      */
     public function create(
-        Model $model,
+        string $type,
         array $data
-    ): Model {
-        return $model::create($data);
-    }
-
-    /**
-     * Atualiza um asset.
-     */
-    public function update(
-        Model $asset,
-        array $data
-    ): Model {
-        $asset->update($data);
-
-        return $asset->refresh();
-    }
-
-    /**
-     * Remove um asset.
-     */
-    public function delete(
-        Model $asset
-    ): bool {
-        return (bool) $asset->delete();
-    }
-
-    /**
-     * Busca por categoria.
-     */
-    public function byCategory(
-        Model $model,
-        string $category
     ) {
-        return $model::query()
-            ->where('category', $category)
-            ->latest()
-            ->get();
+
+        return match ($type) {
+
+            'image' => ImageAsset::create($data),
+
+            'video' => VideoAsset::create($data),
+
+            'audio' => AudioAsset::create($data),
+
+            default => throw new \Exception(
+                'Tipo de asset inválido.'
+            ),
+        };
     }
 }
