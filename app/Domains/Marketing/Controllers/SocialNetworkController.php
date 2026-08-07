@@ -59,12 +59,14 @@ class SocialNetworkController extends Controller
             ->route('marketing.social-networks.index');
     }
 
-    public function toggle(
-    SocialNetwork $socialNetwork
-): RedirectResponse {
-    $socialNetwork->update([
-        'is_active' => ! $socialNetwork->is_active,
-    ]);
+        public function toggle(
+        SocialNetwork $socialNetwork
+    ): RedirectResponse {
 
-    return back();
+        $socialNetwork->update([
+            'is_active' => ! $socialNetwork->is_active,
+        ]);
+
+        return back();
+    }
 }

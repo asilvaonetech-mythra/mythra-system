@@ -40,10 +40,10 @@ Route::middleware([
     |--------------------------------------------------------------------------
     */
 
-    Route::apiResource(
-        'social-networks',
-        SocialNetworkController::class
-    );
+    Route::resource(
+    'social-networks',
+    SocialNetworkController::class
+);
 
 
     Route::patch(
