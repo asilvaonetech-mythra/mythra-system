@@ -11,6 +11,7 @@ use App\Domains\Marketing\Controllers\BrandController;
 use App\Domains\Marketing\Controllers\CommunicationController;
 use App\Domains\Marketing\Controllers\MetricController;
 use App\Domains\Marketing\Controllers\AutomationController;
+use App\Domains\Marketing\Controllers\MarketingAssistantController;
 
 
 Route::middleware([
@@ -216,3 +217,14 @@ Route::delete(
 
 
 });
+
+Route::get(
+    '/assistant',
+    [
+        MarketingAssistantController::class,
+        'index'
+    ]
+)
+->name(
+    'marketing.assistant'
+);
